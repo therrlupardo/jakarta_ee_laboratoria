@@ -7,7 +7,6 @@ import java.time.LocalDateTime;
 
 /**
  * @author mateusz.buchajewicz
- * @since 08.10.2020
  * Entity for article.
  * Describes it's title, author, content and creation date and time.
  */

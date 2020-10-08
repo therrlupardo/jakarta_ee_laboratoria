@@ -8,7 +8,6 @@ import java.time.LocalDateTime;
 
 /**
  * @author mateusz.buchajewicz
- * @since 08.10.2020
  * Entity for comment.
  * Represents information about particular comment, article comment was added to and user which added comment.
  */

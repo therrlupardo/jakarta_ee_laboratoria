@@ -8,7 +8,6 @@ import java.util.List;
 
 /**
  * @author mateusz.buchajewicz
- * @since 08.10.2020
  * Entity for system user
  * Represents information about particular user, including his credentials.
  */
