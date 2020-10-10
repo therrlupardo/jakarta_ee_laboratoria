@@ -1,0 +1,19 @@
+# Should return correct user
+GET http://localhost:9080/blog/api/users/1
+Accept: application/json
+
+###
+
+# Should return 404
+GET http://localhost:9080/blog/api/users/5
+Accept: application/json
+
+###
+
+# Should return list of users
+GET http://localhost:9080/blog/api/users
+Accept: application/json
+
+###
+
+
