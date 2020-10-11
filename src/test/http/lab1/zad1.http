@@ -1,10 +1,11 @@
-# Should return correct user
+# Should return correct user with specified id
+# If user doesn't exist, 404 will be returned (example below)
 GET http://localhost:9080/blog/api/users/1
 Accept: application/json
 
 ###
 
-# Should return 404
+# Should return 404 - initial data consists of 4 users with id 1-4
 GET http://localhost:9080/blog/api/users/5
 Accept: application/json
 
