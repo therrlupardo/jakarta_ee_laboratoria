@@ -15,5 +15,3 @@ GET http://localhost:9080/blog/api/users
 Accept: application/json
 
 ###
-
-

@@ -7,6 +7,12 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
+/**
+ * @author mateusz.buchajewicz
+ * Web listener which creates all application's data
+ * Should be initialized after UserService,
+ * @see CreateServices
+ */
 @WebListener
 public class InitializeData implements ServletContextListener {
 

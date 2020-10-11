@@ -11,6 +11,7 @@ import java.io.Serializable;
 import java.util.logging.Level;
 
 /**
+ * @author michal.wojcik
  * Utility class for cloning objects. Storing objects in memory instead of database can be dangerous because of
  * reference sharing. WHen some objects is returned from the data store is has the same reference as the on in the
  * store. Changing something in the object leads to changing the original (the same) objects in the data store. In

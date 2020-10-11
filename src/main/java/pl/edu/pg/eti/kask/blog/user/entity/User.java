@@ -36,4 +36,10 @@ public class User implements Serializable {
      * List of comments added by user
      */
     private List<Comment> comments;
+
+    private byte[] avatar;
+
+    public String getAvatarFileName() {
+        return id + ".png";
+    }
 }
