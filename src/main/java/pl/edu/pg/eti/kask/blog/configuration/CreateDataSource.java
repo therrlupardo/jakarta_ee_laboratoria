@@ -1,6 +1,7 @@
 package pl.edu.pg.eti.kask.blog.configuration;
 
 import pl.edu.pg.eti.kask.blog.datastore.DataStore;
+import pl.edu.pg.eti.kask.blog.datastore.FileDataStore;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -18,6 +19,7 @@ public class CreateDataSource implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         Path path = Paths.get(System.getProperty("user.home"), "avatars");
-        sce.getServletContext().setAttribute("datasource", new DataStore(path));
+        sce.getServletContext().setAttribute("dataStore", new DataStore());
+        sce.getServletContext().setAttribute("fileDataStore", new FileDataStore(path));
     }
 }

@@ -1,6 +1,6 @@
 package pl.edu.pg.eti.kask.blog.avatar.repository;
 
-import pl.edu.pg.eti.kask.blog.datastore.DataStore;
+import pl.edu.pg.eti.kask.blog.datastore.FileDataStore;
 import pl.edu.pg.eti.kask.blog.user.entity.User;
 
 import java.io.IOException;
@@ -10,10 +10,11 @@ import java.io.InputStream;
  * @author Repository for user avatars
  */
 public class AvatarRepository {
-    private DataStore dataStore;
+    private final FileDataStore fileDataStore;
 
-    public AvatarRepository(DataStore dataStore) {
-        this.dataStore = dataStore;
+    public AvatarRepository(FileDataStore fileDataStore)
+    {
+        this.fileDataStore = fileDataStore;
     }
 
     /**
@@ -24,7 +25,7 @@ public class AvatarRepository {
      * @throws IOException
      */
     public byte[] findAvatarByUser(User user) throws IOException {
-        return dataStore.findAvatarFor(user);
+        return fileDataStore.findAvatarFor(user);
     }
 
     /**
@@ -34,7 +35,7 @@ public class AvatarRepository {
      * @throws IOException
      */
     public void deleteAvatar(User user) throws IOException {
-        dataStore.deleteAvatarFor(user);
+        fileDataStore.deleteAvatarFor(user);
     }
 
     /**
@@ -44,7 +45,7 @@ public class AvatarRepository {
      * @throws IOException
      */
     public void createAvatar(User user, InputStream avatar) throws IOException {
-        dataStore.createAvatarFor(user, avatar);
+        fileDataStore.createAvatarFor(user, avatar);
     }
 
     /**
@@ -54,8 +55,7 @@ public class AvatarRepository {
      * @throws IOException
      */
     public void updateAvatar(User user, InputStream avatar) throws IOException {
-        dataStore.updateAvatarFor(user, avatar);
+        fileDataStore.updateAvatarFor(user, avatar);
     }
-
 
 }
