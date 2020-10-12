@@ -3,6 +3,7 @@ package pl.edu.pg.eti.kask.blog.user.entity;
 import lombok.*;
 import pl.edu.pg.eti.kask.blog.comment.entity.Comment;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -14,8 +15,8 @@ import java.util.List;
 @Data
 @Builder
 @NoArgsConstructor
-@AllArgsConstructor(access= AccessLevel.PRIVATE)
-public class User {
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+public class User implements Serializable {
     /**
      * User's id
      */
@@ -35,4 +36,10 @@ public class User {
      * List of comments added by user
      */
     private List<Comment> comments;
+
+    private byte[] avatar;
+
+    public String getAvatarFileName() {
+        return id + ".png";
+    }
 }

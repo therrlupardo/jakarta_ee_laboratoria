@@ -1,0 +1,40 @@
+# Should get avatar of user with id=1
+# Returns 404 if user doesn't exist or has no avatar
+GET http://localhost:9080/blog/api/avatars/1
+Accept: application/json
+
+###
+
+# Should delete avatar of user with id=1
+# Returns 404 if user doesn't exist or has no avatar
+DELETE http://localhost:9080/blog/api/avatars/1
+Accept: application/json
+
+###
+
+# Should create avatar for user with id=1
+# Returns 404 if user doesn't exist
+# Returns 409 if user has avatar
+POST http://localhost:9080/blog/api/avatars/1
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="avatar"; filename='frodo.png'
+
+< ../../src/main/resources/images/frodo.png
+--boundary--
+
+###
+
+# Should update avatar for user with id=1
+# Return 404 if user doesn't exist or has no avatar
+PUT http://localhost:9080/blog/api/avatars/1
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="avatar"; filename='merry.png'
+
+< ../../src/main/resources/images/merry.png
+--boundary--
+
+###
