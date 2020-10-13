@@ -1,5 +1,6 @@
 package pl.edu.pg.eti.kask.blog.user.servlet;
 
+import pl.edu.pg.eti.kask.blog.user.dto.UserDto;
 import pl.edu.pg.eti.kask.blog.user.entity.User;
 import pl.edu.pg.eti.kask.blog.user.service.UserService;
 import pl.edu.pg.eti.kask.blog.utils.ServletUtils;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * @author mateusz.buchajewicz
@@ -77,7 +79,7 @@ public class UserServlet extends HttpServlet {
 
         if (user.isPresent()) {
             response.setContentType("application/json");
-            response.getWriter().write(jsonb.toJson(user));
+            response.getWriter().write(jsonb.toJson(UserDto.convertFromEntity(user.get())));
         } else {
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
         }
@@ -94,7 +96,11 @@ public class UserServlet extends HttpServlet {
     private void getUsers(HttpServletRequest request, HttpServletResponse response) throws IOException {
         UserService userService = (UserService) request.getServletContext().getAttribute("userService");
         response.setContentType("application/json");
-        response.getWriter().write(jsonb.toJson(userService.findAll()));
+        response.getWriter().write(jsonb.toJson(
+                userService.findAll()
+                        .stream()
+                        .map(UserDto::convertFromEntity)
+                        .collect(Collectors.toList())));
     }
 
 }
