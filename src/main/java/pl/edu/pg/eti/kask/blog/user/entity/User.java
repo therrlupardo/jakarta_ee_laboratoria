@@ -28,6 +28,11 @@ public class User implements Serializable {
     private String username;
 
     /**
+     * User's password, hashed with {@link pl.edu.pg.eti.kask.blog.utils.Sha256HashingUtility}
+     */
+    private String password;
+
+    /**
      * User's date of birth
      */
     private LocalDate birthdate;

@@ -3,6 +3,7 @@ package pl.edu.pg.eti.kask.blog.datastore;
 import pl.edu.pg.eti.kask.blog.serialization.CloningUtility;
 import pl.edu.pg.eti.kask.blog.user.entity.User;
 
+import javax.enterprise.context.ApplicationScoped;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -10,6 +11,7 @@ import java.util.stream.Collectors;
  * @author mateusz.buchajewicz
  * Data store containing data of application
  */
+@ApplicationScoped
 public class DataStore {
 
     /**
@@ -51,5 +53,18 @@ public class DataStore {
     public synchronized void createUser(User user) throws IllegalArgumentException {
         user.setId(findAllUsers().stream().mapToLong(User::getId).max().orElse(0) + 1);
         users.add(user);
+    }
+
+    /**
+     * Searches for user with given credentials
+     *
+     * @param login user's login
+     * @param password user's password (hashed with {@link pl.edu.pg.eti.kask.blog.utils.Sha256HashingUtility}
+     * @return matching user's data as optional (can be empty)
+     */
+    public Optional<User> findUser(String login, String password) {
+        return users.stream()
+                .filter(user -> user.getUsername().equals(login) && user.getPassword().equals(password))
+                .findFirst();
     }
 }

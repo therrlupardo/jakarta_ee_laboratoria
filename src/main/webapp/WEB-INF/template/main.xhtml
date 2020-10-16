@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xml:lang="en"
+      lang="en">
+<f:view>
+    <h:head>
+        <meta charset="UTF-8"/>
+        <meta name="description" content="Blog web application"/>
+        <meta name="keywords" content="BLOG"/>
+        <meta name="author" content="Mateusz Buchajewicz"/>
+        <title>BLOG</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous"/>
+        <h:outputStylesheet library="default" name="css/styles.css"/>
+    </h:head>
+    <h:body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">
+                <h:graphicImage name="default/images/book.png" alt="book" height="30"/>
+                Blog
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"/>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <h:link outcome="/index.xhtml" class="nav-link">Home</h:link>
+                    </li>
+                    <li class="nav-item active">
+                        <h:link outcome="/about/about.xhtml" class="nav-link">About</h:link>
+                    </li>
+                    <li class="nav-item active">
+                        <h:link outcome="/index.xhtml" class="nav-link">Articles</h:link>
+                    </li>
+                </ul>
+                <h:form class="form-inline my-2 my-lg-0" rendered="#{!userContext.authorized}">
+                    <h:outputLabel value="Login" for="login" class="mr-2"/>
+                    <h:inputText id="login"  class="form-control mr-sm-2" value="#{userLogin.login}"/>
+                    <h:outputLabel value="Password" for="password" class="mr-2"/>
+                    <h:inputSecret id="password" class="form-control mr-sm-2" value="#{userLogin.password}"/>
+                    <h:commandButton class="btn btn-outline-success my-sm-0" type="submit" value="Login" action="#{userLogin.loginAction()}"/>
+                </h:form>
+                <h:form rendered="#{userContext.authorized}">
+                    Hello <h:outputText value="#{userContext.principal}"/>
+                    <h:commandButton class="btn btn-outline-success ml-2 my-sm-0" value="Logout" action="#{userLogout.logoutAction()}"/>
+                </h:form>
+            </div>
+        </nav>
+
+        <section class="main-content px-5 pt-2">
+            <ui:insert name="content"/>
+        </section>
+
+        <footer class="footer text-center py-3">
+            © 2020 Copyright: Mateusz Buchajewicz
+        </footer>
+
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+    </h:body>
+</f:view>
+</html>

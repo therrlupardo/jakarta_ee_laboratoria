@@ -199,7 +199,6 @@ public class AvatarServlet extends HttpServlet {
         String servletPath = request.getServletPath();
         if (Paths.AVATARS.equals(servletPath)) {
             if (path.matches(Patterns.AVATAR_BY_USER_ID)) {
-                System.out.println("DELETE_AVATAR()");
                 deleteAvatar(request, response);
                 return;
             }

@@ -7,7 +7,8 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * @author Repository for user avatars
+ * @author mateusz.buchajewicz
+ * Repository for user avatars
  */
 public class AvatarRepository {
     private final FileDataStore fileDataStore;
