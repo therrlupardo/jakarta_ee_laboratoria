@@ -6,7 +6,6 @@ import pl.edu.pg.eti.kask.blog.user.repository.UserRepository;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;

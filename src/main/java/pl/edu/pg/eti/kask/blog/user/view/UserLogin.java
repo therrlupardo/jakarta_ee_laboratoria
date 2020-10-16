@@ -2,14 +2,12 @@ package pl.edu.pg.eti.kask.blog.user.view;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.extern.java.Log;
 import pl.edu.pg.eti.kask.blog.user.authentication.AuthenticationService;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.security.auth.login.CredentialException;
 import java.io.Serializable;
 
 /**

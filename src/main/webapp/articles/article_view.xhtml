@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="/WEB-INF/template/main.xhtml">
+    <f:metadata>
+        <f:viewParam name="id" value="#{articleView.id}" required="true"/>
+        <f:viewAction action="#{articleView.init()}"/>
+    </f:metadata>
+    <ui:define name="content">
+        <article>
+            <header>
+                <h2>
+                    <h:outputText value="#{articleView.article.title}"/>
+                </h2>
+                <h4>
+                    <i>
+                        <h:outputText value="#{articleView.article.author}"/>
+                    </i>
+                </h4>
+            </header>
+            <section>
+                <h:outputText value="#{articleView.article.content}"/>
+                <div class="w-100">
+                    <h3>Comments</h3>
+                    <h:dataTable value="#{articleView.comments}" var="comment"
+                                 styleClass="table table-striped table-hover w-100">
+                        <h:column>
+                            <f:facet name="header">Author</f:facet>
+                            <h:outputText value="${comment.authorId}"/>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">Content</f:facet>
+                            <h:outputText value="${comment.content}"/>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">Creation time</f:facet>
+                            <h:outputText value="${comment.creationTime}"/>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">Likes</f:facet>
+                            <h:outputText value="${comment.numberOfLikes}"/>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">Likes</f:facet>
+                            <h:form>
+                                <h:commandButton class="btn btn-outline-success ml my-sm-0" value="delete"
+                                                 action="#{articleView.deleteAction(comment)}"/>
+                            </h:form>
+                        </h:column>
+                    </h:dataTable>
+                </div>
+            </section>
+        </article>
+    </ui:define>
+</ui:composition>

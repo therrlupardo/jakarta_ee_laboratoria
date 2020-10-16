@@ -1,19 +1,55 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
                 template="/WEB-INF/template/main.xhtml">
     <ui:define name="content">
         <article>
             <header><h2>Articles</h2></header>
             <section>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam et diam nunc. Nam a massa tincidunt,
-                egestas erat ut, accumsan eros. Quisque id aliquam magna. Fusce in faucibus nisi. In id vestibulum lectus,
-                ac ullamcorper est. Donec fringilla, mauris sit amet pulvinar dapibus, risus libero viverra erat, nec
-                lobortis est augue nec tellus. Phasellus sapien odio, mollis ac ipsum sit amet, porttitor tempor ante.
-                Curabitur vitae mattis massa. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
-                curae; Quisque ac orci tempus, lacinia leo nec, pellentesque ante. Vestibulum at finibus nunc. Aenean semper nisl
-                et nisi tempus, eu dictum odio cursus. Sed sit amet consequat est, ut rutrum arcu. Lorem ipsum dolor sit amet,
-                consectetur adipiscing elit. Proin id rutrum tortor.
+                <h:dataTable value="#{articlesList.articles}" var="article"
+                             styleClass="table table-striped table-hover w-100"
+                >
+                    <h:column>
+                        <f:facet name="header">#</f:facet>
+                        <h:outputText value="${article.id}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Title</f:facet>
+                        <h:outputText value="${article.title}"/>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Author</f:facet>
+                        <h:outputText value="${article.author}"/>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">View</f:facet>
+                        <h:link class="btn btn-outline-success ml-2 my-sm-0" value="view"
+                                outcome="/articles/article_view.xhtml"
+                        >
+                            <f:param name="id" value="#{article.id}"/>
+                        </h:link>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Edit</f:facet>
+                        <h:link class="btn btn-outline-success ml-2 my-sm-0" value="edit"
+                                outcome="/articles/article_edit.xhtml" disabled="true"
+                        >
+                            <f:param name="id" value="#{article.id}"/>
+                        </h:link>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Delete</f:facet>
+                        <h:form>
+                            <h:commandButton class="btn btn-outline-success ml my-sm-0" value="delete"
+                                             action="#{articlesList.deleteAction(article)}"/>
+                        </h:form>
+                    </h:column>
+                </h:dataTable>
             </section>
         </article>
     </ui:define>

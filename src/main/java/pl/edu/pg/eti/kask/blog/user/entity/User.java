@@ -2,6 +2,7 @@ package pl.edu.pg.eti.kask.blog.user.entity;
 
 import lombok.*;
 import pl.edu.pg.eti.kask.blog.comment.entity.Comment;
+import pl.edu.pg.eti.kask.blog.common.interfaces.Entity;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -16,7 +17,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class User implements Serializable {
+public class User implements Serializable, Entity {
     /**
      * User's id
      */

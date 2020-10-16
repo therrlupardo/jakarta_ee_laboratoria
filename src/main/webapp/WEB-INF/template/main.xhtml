@@ -20,7 +20,7 @@
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand" href="#">
                 <h:graphicImage name="default/images/book.png" alt="book" height="30"/>
-                Blog
+                Book blog
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"/>
@@ -35,7 +35,7 @@
                         <h:link outcome="/about/about.xhtml" class="nav-link">About</h:link>
                     </li>
                     <li class="nav-item active">
-                        <h:link outcome="/index.xhtml" class="nav-link">Articles</h:link>
+                        <h:link outcome="/articles/article_list.xhtml" class="nav-link">Articles</h:link>
                     </li>
                 </ul>
                 <h:form class="form-inline my-2 my-lg-0" rendered="#{!userContext.authorized}">
