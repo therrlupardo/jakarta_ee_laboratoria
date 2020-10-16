@@ -126,6 +126,10 @@ public class AvatarServlet extends HttpServlet {
         if (user.isPresent()) {
             Part avatar = request.getPart(Parameters.AVATAR);
             if (avatar != null) {
+                if(avatar.getContentType() == null || !avatar.getContentType().equals("image/png")) {
+                    response.sendError(HttpServletResponse.SC_UNSUPPORTED_MEDIA_TYPE);
+                    return;
+                }
                 try {
                     avatarService.create(user.get(), avatar.getInputStream());
                     response.setStatus(HttpServletResponse.SC_CREATED);
@@ -172,6 +176,10 @@ public class AvatarServlet extends HttpServlet {
         if (user.isPresent()) {
             Part avatar = request.getPart(Parameters.AVATAR);
             if (avatar != null) {
+                if(avatar.getContentType() == null || !avatar.getContentType().equals("image/png")) {
+                    response.sendError(HttpServletResponse.SC_UNSUPPORTED_MEDIA_TYPE);
+                    return;
+                }
                 try {
                     avatarService.updateAvatar(user.get(), avatar.getInputStream());
                 } catch (FileNotFoundException e) {

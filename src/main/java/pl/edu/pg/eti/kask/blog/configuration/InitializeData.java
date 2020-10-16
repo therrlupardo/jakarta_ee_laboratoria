@@ -39,7 +39,7 @@ public class InitializeData implements ServletContextListener {
         userService.createUser(User.builder()
                 .id(2L)
                 .username("Meriadoc Brandybuck")
-                .birthdate(LocalDate.of(2982, 12, 24))
+                .birthdate(LocalDate.of(2982, 12, 2))
                 .build()
         );
         userService.createUser(User.builder()
