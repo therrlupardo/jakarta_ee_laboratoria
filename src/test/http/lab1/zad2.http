@@ -20,8 +20,10 @@ Content-Type: multipart/form-data; boundary=boundary
 
 --boundary
 Content-Disposition: form-data; name="avatar"; filename='frodo.png'
+#Content-Type: image/png
 
-< ../../src/main/resources/images/frodo.png
+
+< ../../src/main/resources/images/test
 --boundary--
 
 ###
@@ -33,6 +35,7 @@ Content-Type: multipart/form-data; boundary=boundary
 
 --boundary
 Content-Disposition: form-data; name="avatar"; filename='merry.png'
+Content-Type: image/png
 
 < ../../src/main/resources/images/merry.png
 --boundary--
