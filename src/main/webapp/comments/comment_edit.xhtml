@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="/WEB-INF/template/main.xhtml">
+    <f:metadata>
+        <f:viewParam name="id" value="#{commentEdit.id}" required="true"/>
+        <f:viewAction action="#{commentEdit.init()}"/>
+    </f:metadata>
+    <ui:define name="content">
+        <article>
+            <header>
+                <h2>
+                    Comment
+                    <h:outputText value="#{commentEdit.comment.id}"/>
+                </h2>
+            </header>
+            <section class="p-2 d-flex justify-content-center">
+                <h:form class="form-group w-50 d-flex flex-column">
+                    <h:outputLabel for="content" value="Content"/>
+                    <h:inputTextarea id="content"
+                                     styleClass="form-control"
+                                     value="#{commentEdit.comment.content}"/>
+                    <h:commandButton class="btn btn-outline-success mt-3 ml-auto" value="Update"
+                                     action="#{commentEdit.editCommentAction()}"/>
+                </h:form>
+            </section>
+        </article>
+    </ui:define>
+</ui:composition>

@@ -1,22 +1,20 @@
-package pl.edu.pg.eti.kask.blog.article.dto;
+package pl.edu.pg.eti.kask.blog.article.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import pl.edu.pg.eti.kask.blog.article.entity.Article;
 
 import java.time.LocalDateTime;
 
 /**
  * @author mateusz.buchajewicz
- * DTO for {@link pl.edu.pg.eti.kask.blog.article.entity.Article} class, for article view
+ * JSF view of {@link Article}, used to not use entity
+ * Represents single article
  */
 @Data
 @Builder
 @NoArgsConstructor
-@AllArgsConstructor
-public class ArticleDto {
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+public class ArticleModel {
 
     private Long id;
     private String title;
@@ -25,8 +23,8 @@ public class ArticleDto {
     private Long numberOfLikes;
     private String content;
 
-    public static ArticleDto mapFromEntity(Article entity) {
-        return ArticleDto.builder()
+    public static ArticleModel convertFromEntity(Article entity) {
+        return ArticleModel.builder()
                 .id(entity.getId())
                 .title(entity.getTitle())
                 .author(entity.getAuthor())
@@ -36,7 +34,7 @@ public class ArticleDto {
                 .build();
     }
 
-    public static Article mapToEntity(ArticleDto dto) {
+    public static Article convertToEntity(ArticleModel dto) {
         return Article.builder()
                 .id(dto.getId())
                 .title(dto.getTitle())

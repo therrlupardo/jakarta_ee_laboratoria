@@ -40,7 +40,7 @@ public class CommentRepository implements Serializable, CrudRepository<Comment> 
      */
     @Override
     public Optional<Comment> findById(Long id) {
-        throw new UnsupportedOperationException();
+        return dataStore.findCommentById(id);
     }
 
     /**
@@ -80,6 +80,6 @@ public class CommentRepository implements Serializable, CrudRepository<Comment> 
      */
     @Override
     public void update(Long id, Comment comment) {
-        throw new UnsupportedOperationException();
+        dataStore.updateComment(id, comment);
     }
 }

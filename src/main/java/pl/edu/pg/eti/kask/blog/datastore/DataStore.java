@@ -7,6 +7,7 @@ import pl.edu.pg.eti.kask.blog.serialization.CloningUtility;
 import pl.edu.pg.eti.kask.blog.user.entity.User;
 
 import javax.enterprise.context.ApplicationScoped;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -162,6 +163,7 @@ public class DataStore {
      */
     public synchronized void createComment(Comment comment) {
         comment.setId(getNextId(findAllComments()));
+        comment.setCreationTime(LocalDateTime.now());
         comments.add(comment);
     }
 
@@ -172,5 +174,24 @@ public class DataStore {
      */
     public void deleteComment(Comment comment) {
         comments.removeIf(c -> c.getId().equals(comment.getId()));
+    }
+
+    /**
+     * Searches for comment with given id
+     * @param id id of comment to be found
+     * @return comment with matching id as optional (can be empty)
+     */
+    public Optional<Comment> findCommentById(Long id) {
+        return comments.stream().filter(c -> c.getId().equals(id)).findFirst().map(CloningUtility::clone);
+    }
+
+    /**
+     * Updates comment with given id
+     * @param id id of comment to be updated
+     * @param comment data of comment after update
+     */
+    public void updateComment(Long id, Comment comment) {
+        comments.removeIf(c -> c.getId().equals(id));
+        comments.add(comment);
     }
 }

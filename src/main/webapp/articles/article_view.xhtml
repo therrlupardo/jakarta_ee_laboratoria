@@ -22,13 +22,17 @@
             </header>
             <section>
                 <h:outputText value="#{articleView.article.content}"/>
-                <div class="w-100">
-                    <h3>Comments</h3>
+
+                <div class="w-100 mt-2">
+                    <div class="d-flex">
+                        <h3>Comments</h3>
+                        <h:link outcome="/comments/comment_add.xhtml" class="btn btn-outline-success ml-auto mb-2" value="add"/>
+                    </div>
                     <h:dataTable value="#{articleView.comments}" var="comment"
                                  styleClass="table table-striped table-hover w-100">
                         <h:column>
                             <f:facet name="header">Author</f:facet>
-                            <h:outputText value="${comment.authorId}"/>
+                            <h:outputText value="${comment.author.username}"/>
                         </h:column>
 
                         <h:column>
@@ -38,18 +42,34 @@
 
                         <h:column>
                             <f:facet name="header">Creation time</f:facet>
-                            <h:outputText value="${comment.creationTime}"/>
+                            <h:outputText value="${comment.creationTime}">
+                                <f:convertDateTime type="localDate" pattern="dd.MM.yyyy HH:mm:ss"/>
+                            </h:outputText>
                         </h:column>
 
                         <h:column>
                             <f:facet name="header">Likes</f:facet>
-                            <h:outputText value="${comment.numberOfLikes}"/>
+                            <h:outputText value="${comment.numberOfLikes != null ? comment.numberOfLikes : 0}"/>
                         </h:column>
 
                         <h:column>
-                            <f:facet name="header">Likes</f:facet>
+                            <f:facet name="header">View</f:facet>
+                            <h:link outcome="/comments/comment_view.xhtml" class="btn btn-outline-success ml-2 my-sm-0" value="view">
+                                <f:param name="id" value="#{comment.id}"/>
+                            </h:link>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">Edit</f:facet>
+                            <h:link outcome="/comments/comment_edit.xhtml" class="btn btn-outline-warning ml-2 my-sm-0" value="edit">
+                                <f:param name="id" value="#{comment.id}"/>
+                            </h:link>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">Delete</f:facet>
                             <h:form>
-                                <h:commandButton class="btn btn-outline-success ml my-sm-0" value="delete"
+                                <h:commandButton class="btn btn-outline-danger ml my-sm-0" value="delete"
                                                  action="#{articleView.deleteAction(comment)}"/>
                             </h:form>
                         </h:column>

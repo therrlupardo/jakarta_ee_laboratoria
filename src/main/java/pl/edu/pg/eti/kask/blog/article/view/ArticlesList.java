@@ -1,6 +1,6 @@
 package pl.edu.pg.eti.kask.blog.article.view;
 
-import pl.edu.pg.eti.kask.blog.article.dto.ArticlesDto;
+import pl.edu.pg.eti.kask.blog.article.model.ArticlesModel;
 import pl.edu.pg.eti.kask.blog.article.service.ArticleService;
 import pl.edu.pg.eti.kask.blog.comment.service.CommentService;
 
@@ -32,23 +32,22 @@ public class ArticlesList implements Serializable {
 
     /**
      * Searches for all articles
-     * @return list of all articles as {@link ArticlesDto}
+     * @return list of all articles as {@link ArticlesModel}
      */
-    public List<ArticlesDto> getArticles() {
+    public List<ArticlesModel> getArticles() {
         return articleService.findAll().stream()
-                .map(ArticlesDto::mapFromEntity)
-                .sorted(Comparator.comparing(ArticlesDto::getId))
+                .map(ArticlesModel::convertFromEntity)
+                .sorted(Comparator.comparing(ArticlesModel::getId))
                 .collect(Collectors.toList());
     }
 
     /**
      * Deletes specified article
-     * @param articlesDto article to be deleted
+     * @param articlesModel article to be deleted
      * @return navigation to same page
      */
-    public String deleteAction(ArticlesDto articlesDto) {
-        articleService.delete(ArticlesDto.mapToEntity(articlesDto));
-        System.out.println(commentService.findAllByArticleId(articlesDto.getId()).size());
+    public String deleteAction(ArticlesModel articlesModel) {
+        articleService.delete(ArticlesModel.convertToEntity(articlesModel));
         String viewId = FacesContext.getCurrentInstance().getViewRoot().getViewId();
         return viewId + "?faces-redirect=true&includeViewParams=true";
     }

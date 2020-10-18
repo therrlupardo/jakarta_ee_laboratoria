@@ -36,7 +36,7 @@
 
                     <h:column>
                         <f:facet name="header">Edit</f:facet>
-                        <h:link class="btn btn-outline-success ml-2 my-sm-0" value="edit"
+                        <h:link class="btn btn-outline-warning ml-2 my-sm-0" value="edit"
                                 outcome="/articles/article_edit.xhtml" disabled="true"
                         >
                             <f:param name="id" value="#{article.id}"/>
@@ -45,7 +45,7 @@
                     <h:column>
                         <f:facet name="header">Delete</f:facet>
                         <h:form>
-                            <h:commandButton class="btn btn-outline-success ml my-sm-0" value="delete"
+                            <h:commandButton class="btn btn-outline-danger ml my-sm-0" value="delete"
                                              action="#{articlesList.deleteAction(article)}"/>
                         </h:form>
                     </h:column>

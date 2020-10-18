@@ -1,7 +1,6 @@
 package pl.edu.pg.eti.kask.blog.comment.service;
 
 import lombok.NoArgsConstructor;
-import pl.edu.pg.eti.kask.blog.comment.dto.CommentsDto;
 import pl.edu.pg.eti.kask.blog.comment.entity.Comment;
 import pl.edu.pg.eti.kask.blog.comment.repository.CommentRepository;
 
@@ -9,6 +8,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author mateusz.buchajewicz
@@ -44,5 +44,13 @@ public class CommentService implements Serializable {
 
     public void delete(Comment comment) {
         commentRepository.delete(comment);
+    }
+
+    public Optional<Comment> findById(Long id) {
+        return commentRepository.findById(id);
+    }
+
+    public void updateComment(Comment comment) {
+        commentRepository.update(comment.getId(), comment);
     }
 }

@@ -2,11 +2,12 @@ package pl.edu.pg.eti.kask.blog.article.view;
 
 import lombok.Getter;
 import lombok.Setter;
-import pl.edu.pg.eti.kask.blog.article.dto.ArticleDto;
 import pl.edu.pg.eti.kask.blog.article.entity.Article;
+import pl.edu.pg.eti.kask.blog.article.model.ArticleModel;
 import pl.edu.pg.eti.kask.blog.article.service.ArticleService;
-import pl.edu.pg.eti.kask.blog.comment.dto.CommentsDto;
+import pl.edu.pg.eti.kask.blog.comment.model.CommentsModel;
 import pl.edu.pg.eti.kask.blog.comment.service.CommentService;
+import pl.edu.pg.eti.kask.blog.user.service.UserService;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -22,7 +23,7 @@ import java.util.stream.Collectors;
 
 /**
  * @author mateusz.buchajewicz
- * View bean for {@link pl.edu.pg.eti.kask.blog.article.entity.Article}
+ * View bean for {@link Article}
  */
 @Named
 @SessionScoped
@@ -30,6 +31,7 @@ public class ArticleView implements Serializable {
 
     private final ArticleService articleService;
     private final CommentService commentService;
+    private final UserService userService;
     /**
      * Id of article, loaded from path param
      */
@@ -41,12 +43,13 @@ public class ArticleView implements Serializable {
      * Instance of article
      */
     @Getter
-    private ArticleDto article;
+    private ArticleModel article;
 
     @Inject
-    public ArticleView(ArticleService articleService, CommentService commentService) {
+    public ArticleView(ArticleService articleService, CommentService commentService, UserService userService) {
         this.articleService = articleService;
         this.commentService = commentService;
+        this.userService = userService;
     }
 
     /**
@@ -57,7 +60,7 @@ public class ArticleView implements Serializable {
     public void init() throws IOException {
         Optional<Article> article = articleService.findById(id);
         if (article.isPresent()) {
-            this.article = ArticleDto.mapFromEntity(article.get());
+            this.article = ArticleModel.convertFromEntity(article.get());
         } else {
             FacesContext.getCurrentInstance().getExternalContext()
                     .responseSendError(HttpServletResponse.SC_NOT_FOUND, "Article not found");
@@ -69,10 +72,17 @@ public class ArticleView implements Serializable {
      *
      * @return list of comments
      */
-    public List<CommentsDto> getComments() {
+    public List<CommentsModel> getComments() {
         return commentService.findAllByArticleId(id).stream()
-                .map(CommentsDto::mapFromEntity)
-                .sorted(Comparator.comparing(CommentsDto::getCreationTime))
+                .map(c -> {
+                    try {
+                        return CommentsModel.convertFromEntity(c, userService);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        return null;
+                    }
+                })
+                .sorted(Comparator.comparing(CommentsModel::getCreationTime))
                 .collect(Collectors.toList());
     }
 
@@ -80,8 +90,8 @@ public class ArticleView implements Serializable {
      * Deletes comment
      * @return navigation to same site
      */
-    public String deleteAction(CommentsDto comment) {
-        commentService.delete(CommentsDto.mapToEntity(comment));
+    public String deleteAction(CommentsModel comment) {
+        commentService.delete(CommentsModel.convertToEntity(comment));
         String viewId = FacesContext.getCurrentInstance().getViewRoot().getViewId();
         return viewId + "?faces-redirect=true&includeViewParams=true";
     }
