@@ -8,6 +8,8 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.io.Serializable;
 
 /**
@@ -19,12 +21,14 @@ import java.io.Serializable;
 public class UserLogin implements Serializable {
 
     private final AuthenticationService authenticationService;
+
     /**
      * Value of form's login field
      */
     @Getter
     @Setter
     private String login;
+
     /**
      * Value of form's password field
      */
@@ -40,10 +44,15 @@ public class UserLogin implements Serializable {
     /**
      * Checks user's authenticity and if passing logs into application
      *
+     * @throws IOException thrown if any input/output exception
      * @return navigation path to same page
      */
-    public String loginAction() {
-        authenticationService.authenticate(login, password);
+    public String loginAction() throws IOException {
+        boolean authenticated = authenticationService.authenticate(login, password);
+        if (!authenticated) {
+            FacesContext.getCurrentInstance().getExternalContext()
+                    .responseSendError(HttpServletResponse.SC_UNAUTHORIZED, "Wrong login or password");
+        }
         String viewId = FacesContext.getCurrentInstance().getViewRoot().getViewId();
         return viewId + "?faces-redirect=true&includeViewParams=true";
     }

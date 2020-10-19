@@ -1,9 +1,7 @@
 package pl.edu.pg.eti.kask.blog.comment.entity;
 
 import lombok.*;
-import pl.edu.pg.eti.kask.blog.article.entity.Article;
 import pl.edu.pg.eti.kask.blog.common.interfaces.Entity;
-import pl.edu.pg.eti.kask.blog.user.entity.User;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;

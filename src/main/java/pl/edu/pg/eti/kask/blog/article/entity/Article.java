@@ -4,7 +4,6 @@ import lombok.*;
 import pl.edu.pg.eti.kask.blog.common.interfaces.Entity;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**

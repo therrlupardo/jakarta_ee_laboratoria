@@ -25,12 +25,40 @@ import java.util.Optional;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CommentsModel {
+
+    /**
+     * Unique comment identifier
+     */
     private Long id;
+
+    /**
+     * Content of comment
+     */
     private String content;
+
+    /**
+     * Author of comment
+     */
     private UserModel author;
+
+    /**
+     * Time of creation of comment
+     */
     private LocalDateTime creationTime;
+
+    /**
+     * Number of likes under comment
+     */
     private Long numberOfLikes;
 
+    /**
+     * Converts Comment to CommentsModel
+     *
+     * @param entity      comment to be converted
+     * @param userService needed to load user by it's id stored in Comment
+     * @return converted model
+     * @throws IOException thrown if any input/output exception
+     */
     public static CommentsModel convertFromEntity(Comment entity, UserService userService) throws IOException {
         Optional<User> user = userService.findById(entity.getUserId());
         if (user.isPresent()) {
@@ -48,12 +76,18 @@ public class CommentsModel {
         }
     }
 
-    public static Comment convertToEntity(CommentsModel dto) {
+    /**
+     * Converts CommentsModel to Comment
+     *
+     * @param model model to be converted
+     * @return converted entity
+     */
+    public static Comment convertToEntity(CommentsModel model) {
         return Comment.builder()
-                .id(dto.getId())
-                .content(dto.getContent())
-                .creationTime(dto.getCreationTime())
-                .numberOfLikes(dto.getNumberOfLikes())
+                .id(model.getId())
+                .content(model.getContent())
+                .creationTime(model.getCreationTime())
+                .numberOfLikes(model.getNumberOfLikes())
                 .build();
     }
 

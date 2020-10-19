@@ -3,8 +3,9 @@ package pl.edu.pg.eti.kask.blog.datastore;
 import pl.edu.pg.eti.kask.blog.article.entity.Article;
 import pl.edu.pg.eti.kask.blog.comment.entity.Comment;
 import pl.edu.pg.eti.kask.blog.common.interfaces.Entity;
-import pl.edu.pg.eti.kask.blog.serialization.CloningUtility;
+import pl.edu.pg.eti.kask.blog.utils.CloningUtility;
 import pl.edu.pg.eti.kask.blog.user.entity.User;
+import pl.edu.pg.eti.kask.blog.utils.Sha256HashingUtility;
 
 import javax.enterprise.context.ApplicationScoped;
 import java.time.LocalDateTime;
@@ -72,7 +73,7 @@ public class DataStore {
      * Searches for user with given credentials
      *
      * @param login    user's login
-     * @param password user's password (hashed with {@link pl.edu.pg.eti.kask.blog.utils.Sha256HashingUtility}
+     * @param password user's password (hashed with {@link Sha256HashingUtility}
      * @return matching user's data as optional (can be empty)
      */
     public Optional<User> findUser(String login, String password) {
@@ -178,6 +179,7 @@ public class DataStore {
 
     /**
      * Searches for comment with given id
+     *
      * @param id id of comment to be found
      * @return comment with matching id as optional (can be empty)
      */
@@ -187,7 +189,8 @@ public class DataStore {
 
     /**
      * Updates comment with given id
-     * @param id id of comment to be updated
+     *
+     * @param id      id of comment to be updated
      * @param comment data of comment after update
      */
     public void updateComment(Long id, Comment comment) {

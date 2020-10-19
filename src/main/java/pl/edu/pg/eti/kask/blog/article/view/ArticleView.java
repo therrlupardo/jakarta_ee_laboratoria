@@ -88,6 +88,7 @@ public class ArticleView implements Serializable {
 
     /**
      * Deletes comment
+     *
      * @return navigation to same site
      */
     public String deleteAction(CommentsModel comment) {

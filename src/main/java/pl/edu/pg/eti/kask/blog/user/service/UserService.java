@@ -3,6 +3,7 @@ package pl.edu.pg.eti.kask.blog.user.service;
 import lombok.NoArgsConstructor;
 import pl.edu.pg.eti.kask.blog.user.entity.User;
 import pl.edu.pg.eti.kask.blog.user.repository.UserRepository;
+import pl.edu.pg.eti.kask.blog.utils.Sha256HashingUtility;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -55,7 +56,7 @@ public class UserService implements Serializable {
      * Searches for user with given credentials
      *
      * @param login    user's login
-     * @param password password hashed using {@link pl.edu.pg.eti.kask.blog.utils.Sha256HashingUtility}
+     * @param password password hashed using {@link Sha256HashingUtility}
      * @return matching users data as optional (can be empty)
      */
     public Optional<User> find(String login, String password) {

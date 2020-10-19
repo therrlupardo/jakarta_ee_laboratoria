@@ -12,9 +12,23 @@ import pl.edu.pg.eti.kask.blog.user.entity.User;
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class UserDto {
+
+    /**
+     * Unique user identifier
+     */
     private Long id;
+
+    /**
+     * User's name
+     */
     private String name;
 
+    /**
+     * Converts User to UserDto
+     *
+     * @param user entity to be converted
+     * @return converted model
+     */
     public static UserDto convertFromEntity(User user) {
         return UserDto.builder()
                 .id(user.getId())

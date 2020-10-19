@@ -3,6 +3,7 @@ package pl.edu.pg.eti.kask.blog.user.repository;
 import pl.edu.pg.eti.kask.blog.common.interfaces.CrudRepository;
 import pl.edu.pg.eti.kask.blog.datastore.DataStore;
 import pl.edu.pg.eti.kask.blog.user.entity.User;
+import pl.edu.pg.eti.kask.blog.utils.Sha256HashingUtility;
 
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
@@ -76,7 +77,7 @@ public class UserRepository implements CrudRepository<User> {
      * Searches for user with given credentials
      *
      * @param login    user's login
-     * @param password user's password (hashed with {@link pl.edu.pg.eti.kask.blog.utils.Sha256HashingUtility}
+     * @param password user's password (hashed with {@link Sha256HashingUtility}
      * @return matching user's data as optional (can be empty)
      */
     public Optional<User> find(String login, String password) {

@@ -12,7 +12,7 @@ import java.io.InputStream;
  */
 public class AvatarService {
 
-    private AvatarRepository avatarRepository;
+    private final AvatarRepository avatarRepository;
 
     public AvatarService(AvatarRepository avatarRepository) {
         this.avatarRepository = avatarRepository;
@@ -23,7 +23,7 @@ public class AvatarService {
      *
      * @param user user which avatar should be returned
      * @return avatar of specified user as array of bytes
-     * @throws IOException
+     * @throws IOException throw if any input/output exception
      */
     public byte[] findAvatarByUser(User user) throws IOException {
         return avatarRepository.findAvatarByUser(user);
@@ -33,7 +33,7 @@ public class AvatarService {
      * Deletes avatar of given user
      *
      * @param user user which avatar should be removed
-     * @throws IOException
+     * @throws IOException throw if any input/output exception
      */
     public void delete(User user) throws IOException {
         avatarRepository.deleteAvatar(user);
@@ -41,9 +41,10 @@ public class AvatarService {
 
     /**
      * Creates avatar for given user
-     * @param user user for which avatar should be created
+     *
+     * @param user   user for which avatar should be created
      * @param avatar avatar which should be assigned to given user
-     * @throws IOException
+     * @throws IOException throw if any input/output exception
      */
     public void create(User user, InputStream avatar) throws IOException {
         avatarRepository.createAvatar(user, avatar);
@@ -51,9 +52,10 @@ public class AvatarService {
 
     /**
      * Updates avatar for given user
-     * @param user user which avatar should be updated
+     *
+     * @param user   user which avatar should be updated
      * @param avatar avatar which should be assigned to given user
-     * @throws IOException
+     * @throws IOException throw if any input/output exception
      */
     public void updateAvatar(User user, InputStream avatar) throws IOException {
         avatarRepository.updateAvatar(user, avatar);

@@ -40,9 +40,10 @@ public class InitializeData {
     /**
      * Runs after ApplicationScoped.class initializes
      *
-     * @param init
-     * @throws URISyntaxException
-     * @throws IOException
+     * @param init observed object
+     *
+     * @throws URISyntaxException thrown if resource URI is not valid
+     * @throws IOException thrown if any input/output exception
      */
     public void contextInitialized(@Observes @Initialized(ApplicationScoped.class) Object init) throws URISyntaxException, IOException {
         init();
@@ -51,8 +52,8 @@ public class InitializeData {
     /**
      * Creates initial data
      *
-     * @throws URISyntaxException
-     * @throws IOException
+     * @throws URISyntaxException thrown if resource URI is not valid
+     * @throws IOException thrown if any input/output exception
      */
     private synchronized void init() throws URISyntaxException, IOException {
         initUsers();
@@ -88,10 +89,10 @@ public class InitializeData {
     /**
      * Creates initial articles, taking content from resource/articles
      *
-     * @throws URISyntaxException
-     * @throws IOException
+     * @throws URISyntaxException thrown if resource URI is not valid
+     * @throws IOException thrown if any input/output exception
      */
-    private void initArticles() throws URISyntaxException, IOException {
+    private void initArticles() throws IOException, URISyntaxException {
         Path fellowShipOfTheRing = Paths.get(getClass().getResource("/articles/fellowshipOfTheRing.txt").toURI());
         this.articleService.createArticle(Article.builder()
                 .title("The Fellowship of the ring")
@@ -122,9 +123,6 @@ public class InitializeData {
 
     /**
      * Creates initial users
-     *
-     * @throws URISyntaxException
-     * @throws IOException
      */
     private void initUsers() {
         userService.createUser(User.builder()

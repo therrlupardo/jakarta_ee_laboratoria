@@ -13,10 +13,25 @@ import pl.edu.pg.eti.kask.blog.article.entity.Article;
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class ArticlesModel {
+    /**
+     * Unique identifier of Article
+     */
     private Long id;
+    /**
+     * Title of article
+     */
     private String title;
+    /**
+     * Author of article
+     */
     private String author;
 
+    /**
+     * Converts Article to ArticlesModel
+     *
+     * @param entity entity of Article to be converted
+     * @return entity converted to ArticlesModel
+     */
     public static ArticlesModel convertFromEntity(Article entity) {
         return ArticlesModel.builder()
                 .id(entity.getId())
@@ -25,11 +40,17 @@ public class ArticlesModel {
                 .build();
     }
 
-    public static Article convertToEntity(ArticlesModel dto) {
+    /**
+     * Converts ArticlesModel to Article
+     *
+     * @param model object of ArticlesModel to be converted
+     * @return object converted to entity Article
+     */
+    public static Article convertToEntity(ArticlesModel model) {
         return Article.builder()
-                .id(dto.getId())
-                .title(dto.getTitle())
-                .author(dto.getAuthor())
+                .id(model.getId())
+                .title(model.getTitle())
+                .author(model.getAuthor())
                 .build();
     }
 }

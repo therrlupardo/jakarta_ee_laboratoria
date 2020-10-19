@@ -21,6 +21,9 @@ public class AuthenticationService implements Serializable {
 
     private UserService userService;
 
+    /**
+     * Context of user, stores information about logged in use
+     */
     private UserContext userContext;
 
     @Inject
@@ -31,7 +34,8 @@ public class AuthenticationService implements Serializable {
 
     /**
      * Checks if user's credentials are valid. If it's valid, sets user as principal in UserContext.
-     * @param login user's login
+     *
+     * @param login    user's login
      * @param password user's password
      * @return true if user's credentials are valid, otherwise returns false
      */

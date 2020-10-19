@@ -16,13 +16,36 @@ import java.time.LocalDateTime;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class ArticleModel {
 
+    /**
+     * Unique article identifier
+     */
     private Long id;
+    /**
+     * Title of article
+     */
     private String title;
+    /**
+     * Author of article
+     */
     private String author;
+    /**
+     * Time of creation of article
+     */
     private LocalDateTime creationTime;
+    /**
+     * Number of likes from users
+     */
     private Long numberOfLikes;
+    /**
+     * Main content of article
+     */
     private String content;
 
+    /**
+     * Converts Article to ArticleModel
+     * @param entity entity of article to be converted
+     * @return entity converted to ArticleModel
+     */
     public static ArticleModel convertFromEntity(Article entity) {
         return ArticleModel.builder()
                 .id(entity.getId())
@@ -34,14 +57,4 @@ public class ArticleModel {
                 .build();
     }
 
-    public static Article convertToEntity(ArticleModel dto) {
-        return Article.builder()
-                .id(dto.getId())
-                .title(dto.getTitle())
-                .author(dto.getAuthor())
-                .creationTime(dto.getCreationTime())
-                .numberOfLikes(dto.getNumberOfLikes())
-                .content(dto.getContent())
-                .build();
-    }
 }

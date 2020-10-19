@@ -34,6 +34,9 @@ public class CommentView implements Serializable {
     @Setter
     private Long id;
 
+    /**
+     * Data of comment
+     */
     @Getter
     private CommentModel comment;
 
@@ -44,6 +47,11 @@ public class CommentView implements Serializable {
         this.articleService = articleService;
     }
 
+    /**
+     * Initializes data
+     *
+     * @throws IOException thrown if any input/output exception
+     */
     public void init() throws IOException {
         Optional<Comment> comment = commentService.findById(id);
         if (comment.isPresent()) {

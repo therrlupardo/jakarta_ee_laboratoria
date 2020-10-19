@@ -12,7 +12,7 @@ import java.util.Optional;
 
 /**
  * @author mateusz.buchajewicz
- * Repository for {@link pl.edu.pg.eti.kask.blog.comment.entity.Comment} class
+ * Repository for {@link Comment} class
  */
 @Dependent
 public class CommentRepository implements Serializable, CrudRepository<Comment> {
@@ -26,6 +26,7 @@ public class CommentRepository implements Serializable, CrudRepository<Comment> 
 
     /**
      * Searches for comments for article with given id
+     *
      * @param articleId id of article, which comments should be returned
      * @return list of comments under article
      */
@@ -35,6 +36,7 @@ public class CommentRepository implements Serializable, CrudRepository<Comment> 
 
     /**
      * Searches for comment with given id
+     *
      * @param id id of comment to be found
      * @return comment with matching id as optional (can be empty)
      */
@@ -65,6 +67,7 @@ public class CommentRepository implements Serializable, CrudRepository<Comment> 
 
     /**
      * Deletes specified comment
+     *
      * @param comment comment to be deleted
      */
     @Override

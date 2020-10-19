@@ -24,7 +24,8 @@ public class UserContext implements Serializable {
 
     /**
      * Checks if user is logged and authorized to perform actions
-     * @return true if user is logged in and autorized
+     *
+     * @return true if user is logged in and authorized
      */
     public boolean isAuthorized() {
         return principal != null;

@@ -1,8 +1,8 @@
 package pl.edu.pg.eti.kask.blog.article.view;
 
+import pl.edu.pg.eti.kask.blog.article.entity.Article;
 import pl.edu.pg.eti.kask.blog.article.model.ArticlesModel;
 import pl.edu.pg.eti.kask.blog.article.service.ArticleService;
-import pl.edu.pg.eti.kask.blog.comment.service.CommentService;
 
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
@@ -15,23 +15,22 @@ import java.util.stream.Collectors;
 
 /**
  * @author mateusz.buchajewicz
- * View bean for list of {@link pl.edu.pg.eti.kask.blog.article.entity.Article}
+ * View bean for list of {@link Article}
  */
 @Named
 @RequestScoped
 public class ArticlesList implements Serializable {
 
     private final ArticleService articleService;
-    private final CommentService commentService;
 
     @Inject
-    public ArticlesList(ArticleService articleService, CommentService commentService) {
+    public ArticlesList(ArticleService articleService) {
         this.articleService = articleService;
-        this.commentService = commentService;
     }
 
     /**
      * Searches for all articles
+     *
      * @return list of all articles as {@link ArticlesModel}
      */
     public List<ArticlesModel> getArticles() {
@@ -43,6 +42,7 @@ public class ArticlesList implements Serializable {
 
     /**
      * Deletes specified article
+     *
      * @param articlesModel article to be deleted
      * @return navigation to same page
      */

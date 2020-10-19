@@ -29,16 +29,42 @@ import java.util.Optional;
 @EqualsAndHashCode
 public class CommentModel {
 
+    /**
+     * Unique comment identifier
+     */
     private Long id;
+    /**
+     * Author of comment
+     */
     private UserModel author;
+    /**
+     * Content of comment
+     */
     private String content;
+    /**
+     * Article to which comment was added
+     */
     private ArticleModel article;
+    /**
+     * Time of creation of comment
+     */
     private LocalDateTime creationTime;
+    /**
+     * Number of likes under comment
+     */
     private Long numberOfLikes;
 
 
+    /**
+     * Converts Comment to CommentModel
+     *
+     * @param comment        Comment to be converted
+     * @param userService    needed to load user by it's id stored in Comment
+     * @param articleService needed to load article by it's id stored in Comment
+     * @return converted model
+     * @throws IOException thrown if any input/output exception
+     */
     public static CommentModel convertFromEntity(Comment comment, UserService userService, ArticleService articleService) throws IOException {
-        System.out.println(comment.getArticleId() + " " + comment.getUserId());
         Optional<Article> article = articleService.findById(comment.getArticleId());
         Optional<User> author = userService.findById(comment.getUserId());
         if (article.isPresent() && author.isPresent()) {
@@ -57,6 +83,12 @@ public class CommentModel {
         }
     }
 
+    /**
+     * Converts CommentModel to Comment
+     *
+     * @param comment CommentModel to be converted
+     * @return converted entity
+     */
     public static Comment convertToEntity(CommentModel comment) {
         return Comment.builder()
                 .id(comment.getId())

@@ -43,6 +43,12 @@ public class UserModel {
      */
     private List<Comment> comments;
 
+    /**
+     * Converts User to UserModel
+     *
+     * @param entity entity to be converted
+     * @return converted model
+     */
     public static UserModel convertFromEntity(User entity) {
         return UserModel.builder().id(entity.getId()).username(entity.getUsername()).build();
     }

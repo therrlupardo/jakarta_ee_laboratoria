@@ -18,7 +18,7 @@ public class ServletUtils {
 
     /**
      * Extract numerical id from request, if it's there as a wildcard
-     * @param request
+     * @param request HTTP request
      * @return id from wildcard as Long
      */
     public static Long getIdFromWildcard(HttpServletRequest request) {

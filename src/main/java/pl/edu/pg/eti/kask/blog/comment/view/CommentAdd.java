@@ -44,8 +44,10 @@ public class CommentAdd implements Serializable {
     @Getter
     private List<ArticleModel> articles;
 
+    /**
+     * Model of comment
+     */
     @Getter
-//    @Setter
     private CommentModel comment;
 
     /**
@@ -61,6 +63,9 @@ public class CommentAdd implements Serializable {
         this.conversation = conversation;
     }
 
+    /**
+     * Initializes view data. Starts conversation
+     */
     @PostConstruct
     public void init() {
         users = userService.findAll().stream()
