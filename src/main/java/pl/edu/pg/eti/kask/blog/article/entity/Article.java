@@ -1,8 +1,9 @@
 package pl.edu.pg.eti.kask.blog.article.entity;
 
 import lombok.*;
+import pl.edu.pg.eti.kask.blog.common.interfaces.Entity;
 
-import java.time.LocalDate;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -14,7 +15,7 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class Article {
+public class Article implements Serializable, Entity {
     /**
      * Article's id
      */

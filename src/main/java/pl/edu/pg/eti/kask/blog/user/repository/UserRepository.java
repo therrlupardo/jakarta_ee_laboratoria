@@ -1,10 +1,12 @@
 package pl.edu.pg.eti.kask.blog.user.repository;
 
-import jdk.jshell.spi.ExecutionControl;
 import pl.edu.pg.eti.kask.blog.common.interfaces.CrudRepository;
 import pl.edu.pg.eti.kask.blog.datastore.DataStore;
 import pl.edu.pg.eti.kask.blog.user.entity.User;
+import pl.edu.pg.eti.kask.blog.utils.Sha256HashingUtility;
 
+import javax.enterprise.context.Dependent;
+import javax.inject.Inject;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,9 +14,11 @@ import java.util.Optional;
  * @author mateusz.buchajewicz
  * Repository for user entity
  */
+@Dependent
 public class UserRepository implements CrudRepository<User> {
-    private DataStore dataStore;
+    private final DataStore dataStore;
 
+    @Inject
     public UserRepository(DataStore dataStore) {
         this.dataStore = dataStore;
     }
@@ -29,6 +33,7 @@ public class UserRepository implements CrudRepository<User> {
 
     /**
      * Deletes specified user
+     *
      * @param user user to be deleted
      */
     @Override
@@ -38,7 +43,8 @@ public class UserRepository implements CrudRepository<User> {
 
     /**
      * Replaces data of user with given id with data specified as param user
-     * @param id id of user, which data should be updated
+     *
+     * @param id   id of user, which data should be updated
      * @param user data of user after modification
      */
     @Override
@@ -48,6 +54,7 @@ public class UserRepository implements CrudRepository<User> {
 
     /**
      * Searches for user with given id
+     *
      * @param id unique identifier of user
      * @return user with specified id as optional (can be empty)
      */
@@ -58,10 +65,22 @@ public class UserRepository implements CrudRepository<User> {
 
     /**
      * Creates user
+     *
      * @param user user to be created
      */
     @Override
     public void create(User user) {
         dataStore.createUser(user);
+    }
+
+    /**
+     * Searches for user with given credentials
+     *
+     * @param login    user's login
+     * @param password user's password (hashed with {@link Sha256HashingUtility}
+     * @return matching user's data as optional (can be empty)
+     */
+    public Optional<User> find(String login, String password) {
+        return dataStore.findUser(login, password);
     }
 }

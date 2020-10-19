@@ -26,33 +26,6 @@ import java.util.Optional;
 @MultipartConfig(maxFileSize = 200 * 1024)
 public class AvatarServlet extends HttpServlet {
 
-    /**
-     * Available api uris
-     */
-    public static class Paths {
-        public static final String AVATARS = "/api/avatars";
-    }
-
-    /**
-     * Patterns for wildcards
-     */
-    public static class Patterns {
-        /**
-         * Matches numerical variable, used as unique identifier of user
-         */
-        public static final String AVATAR_BY_USER_ID = "^/[0-9]+/?$";
-    }
-
-    /**
-     * Request parameters
-     */
-    public static class Parameters {
-        /**
-         * Indicates that request content if part of avatar
-         */
-        public static final String AVATAR = "avatar";
-    }
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String path = ServletUtils.parseRequestPath(request);
@@ -70,9 +43,9 @@ public class AvatarServlet extends HttpServlet {
      * If user doesn't exist, 404 will be returned
      * If avatar doesn't exist, 404 will be returned
      *
-     * @param request
-     * @param response
-     * @throws IOException
+     * @param request  HTTP request
+     * @param response HTTP response
+     * @throws IOException thrown if any input/output exception
      */
     private void getAvatarForUserId(HttpServletRequest request, HttpServletResponse response) throws IOException {
         UserService userService = (UserService) request.getServletContext().getAttribute("userService");
@@ -112,10 +85,10 @@ public class AvatarServlet extends HttpServlet {
      * If user already has avatar, 409 will be returned
      * If avatar was not specified as request content, 204 will be returned
      *
-     * @param request
-     * @param response
-     * @throws IOException
-     * @throws ServletException
+     * @param request  HTTP request
+     * @param response HTTP response
+     * @throws IOException      thrown if any input/output exception
+     * @throws ServletException thrown if exception while extracting parts from request
      */
     private void createAvatar(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         UserService userService = (UserService) request.getServletContext().getAttribute("userService");
@@ -126,7 +99,7 @@ public class AvatarServlet extends HttpServlet {
         if (user.isPresent()) {
             Part avatar = request.getPart(Parameters.AVATAR);
             if (avatar != null) {
-                if(avatar.getContentType() == null || !avatar.getContentType().equals("image/png")) {
+                if (avatar.getContentType() == null || !avatar.getContentType().equals("image/png")) {
                     response.sendError(HttpServletResponse.SC_UNSUPPORTED_MEDIA_TYPE);
                     return;
                 }
@@ -162,10 +135,10 @@ public class AvatarServlet extends HttpServlet {
      * If user has no avatar, 404 will be returned
      * If avatar was not specified as request content, 204 will be returned
      *
-     * @param request
-     * @param response
-     * @throws IOException
-     * @throws ServletException
+     * @param request  HTTP request
+     * @param response HTTP response
+     * @throws IOException      thrown if any input/output exception
+     * @throws ServletException thrown if exception while extracting parts from request
      */
     private void updateAvatar(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         UserService userService = (UserService) request.getServletContext().getAttribute("userService");
@@ -176,7 +149,7 @@ public class AvatarServlet extends HttpServlet {
         if (user.isPresent()) {
             Part avatar = request.getPart(Parameters.AVATAR);
             if (avatar != null) {
-                if(avatar.getContentType() == null || !avatar.getContentType().equals("image/png")) {
+                if (avatar.getContentType() == null || !avatar.getContentType().equals("image/png")) {
                     response.sendError(HttpServletResponse.SC_UNSUPPORTED_MEDIA_TYPE);
                     return;
                 }
@@ -199,7 +172,6 @@ public class AvatarServlet extends HttpServlet {
         String servletPath = request.getServletPath();
         if (Paths.AVATARS.equals(servletPath)) {
             if (path.matches(Patterns.AVATAR_BY_USER_ID)) {
-                System.out.println("DELETE_AVATAR()");
                 deleteAvatar(request, response);
                 return;
             }
@@ -211,9 +183,10 @@ public class AvatarServlet extends HttpServlet {
      * Deletes avatar of user, which id was specified in request
      * If user doesn't exist, 404 will be returned
      * If user has no avatar, 404 will be returned
-     * @param request
-     * @param response
-     * @throws IOException
+     *
+     * @param request  HTTP request
+     * @param response HTTP response
+     * @throws IOException thrown if any input/output exception
      */
     private void deleteAvatar(HttpServletRequest request, HttpServletResponse response) throws IOException {
         UserService userService = (UserService) request.getServletContext().getAttribute("userService");
@@ -230,5 +203,32 @@ public class AvatarServlet extends HttpServlet {
         } else {
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
         }
+    }
+
+    /**
+     * Available api uris
+     */
+    public static class Paths {
+        public static final String AVATARS = "/api/avatars";
+    }
+
+    /**
+     * Patterns for wildcards
+     */
+    public static class Patterns {
+        /**
+         * Matches numerical variable, used as unique identifier of user
+         */
+        public static final String AVATAR_BY_USER_ID = "^/[0-9]+/?$";
+    }
+
+    /**
+     * Request parameters
+     */
+    public static class Parameters {
+        /**
+         * Indicates that request content if part of avatar
+         */
+        public static final String AVATAR = "avatar";
     }
 }
