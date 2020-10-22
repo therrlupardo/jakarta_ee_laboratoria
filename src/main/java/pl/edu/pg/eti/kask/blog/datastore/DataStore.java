@@ -208,4 +208,16 @@ public class DataStore {
         articles.removeIf(a -> a.getId().equals(id));
         articles.add(article);
     }
+
+    /**
+     * Searches for comment with given articleid and id
+     *
+     * @param articleId id of article
+     * @param commentId id of comment
+     * @return comment with matching articleId and own id
+     */
+    public Optional<Comment> findOneCommentByArticleId(Long articleId, Long commentId) {
+        List<Comment> commentsFromArticle = findAllCommentByArticleId(articleId);
+        return commentsFromArticle.stream().filter(c -> c.getId().equals(commentId)).findFirst();
+    }
 }

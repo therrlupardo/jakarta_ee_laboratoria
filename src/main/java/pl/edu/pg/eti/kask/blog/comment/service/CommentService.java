@@ -72,4 +72,15 @@ public class CommentService implements Serializable {
     public void updateComment(Long id, Comment comment) {
         commentRepository.update(id, comment);
     }
+
+    /**
+     * Searches for comment with given id from article with given articleId
+     *
+     * @param articleId id of article
+     * @param commentId id of comment
+     * @return comment with matching id's as optional (can be empty)
+     */
+    public Optional<Comment> findOneByArticleId(Long articleId, Long commentId) {
+        return commentRepository.findOneByArticleId(articleId, commentId);
+    }
 }

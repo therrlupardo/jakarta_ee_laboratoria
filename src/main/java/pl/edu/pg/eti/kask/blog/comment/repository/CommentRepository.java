@@ -85,4 +85,15 @@ public class CommentRepository implements Serializable, CrudRepository<Comment> 
     public void update(Long id, Comment comment) {
         dataStore.updateComment(id, comment);
     }
+
+    /**
+     * Searches for comment with given id from article with given articleId
+     *
+     * @param articleId id of article
+     * @param commentId id of comment
+     * @return comment with matching id's as optional (can be empty)
+     */
+    public Optional<Comment> findOneByArticleId(Long articleId, Long commentId) {
+        return dataStore.findOneCommentByArticleId(articleId, commentId);
+    }
 }

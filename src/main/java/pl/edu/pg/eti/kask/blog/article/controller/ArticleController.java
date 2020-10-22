@@ -50,9 +50,6 @@ public class ArticleController {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     public Response createArticle(CreateArticleRequest request) {
-        if (request == null) {
-            return Response.status(Response.Status.NO_CONTENT).build();
-        }
         Article article = CreateArticleRequest.mapToEntity(request);
         articleService.createArticle(article);
         return Response.created(
@@ -65,9 +62,6 @@ public class ArticleController {
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response updateArticle(@PathParam("id") Long id, UpdateArticleRequest request) {
-        if (request == null) {
-            return Response.status(Response.Status.NO_CONTENT).build();
-        }
         Optional<Article> article = articleService.findById(id);
         if (article.isPresent()) {
             articleService.updateArticle(id, UpdateArticleRequest.convertToEntity(article.get(), request));
