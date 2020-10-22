@@ -71,6 +71,6 @@ public class ArticleRepository implements CrudRepository<Article> {
      */
     @Override
     public void update(Long id, Article article) {
-        throw new UnsupportedOperationException();
+        dataStore.updateArticle(id, article);
     }
 }

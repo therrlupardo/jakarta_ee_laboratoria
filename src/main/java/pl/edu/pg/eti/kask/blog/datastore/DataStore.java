@@ -3,8 +3,8 @@ package pl.edu.pg.eti.kask.blog.datastore;
 import pl.edu.pg.eti.kask.blog.article.entity.Article;
 import pl.edu.pg.eti.kask.blog.comment.entity.Comment;
 import pl.edu.pg.eti.kask.blog.common.interfaces.Entity;
-import pl.edu.pg.eti.kask.blog.utils.CloningUtility;
 import pl.edu.pg.eti.kask.blog.user.entity.User;
+import pl.edu.pg.eti.kask.blog.utils.CloningUtility;
 import pl.edu.pg.eti.kask.blog.utils.Sha256HashingUtility;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -196,5 +196,16 @@ public class DataStore {
     public void updateComment(Long id, Comment comment) {
         comments.removeIf(c -> c.getId().equals(id));
         comments.add(comment);
+    }
+
+    /**
+     * Updates article with given id
+     *
+     * @param id      id of article to be updated
+     * @param article data of article after update
+     */
+    public void updateArticle(Long id, Article article) {
+        articles.removeIf(a -> a.getId().equals(id));
+        articles.add(article);
     }
 }
