@@ -1,7 +1,7 @@
 package pl.edu.pg.eti.kask.blog.user.repository;
 
 import pl.edu.pg.eti.kask.blog.common.interfaces.CrudRepository;
-import pl.edu.pg.eti.kask.blog.datastore.DataStore;
+import pl.edu.pg.eti.kask.blog.datastore.UserDataStore;
 import pl.edu.pg.eti.kask.blog.user.entity.User;
 import pl.edu.pg.eti.kask.blog.utils.Sha256HashingUtility;
 
@@ -16,11 +16,11 @@ import java.util.Optional;
  */
 @Dependent
 public class UserRepository implements CrudRepository<User> {
-    private final DataStore dataStore;
+    private final UserDataStore userDataStore;
 
     @Inject
-    public UserRepository(DataStore dataStore) {
-        this.dataStore = dataStore;
+    public UserRepository(UserDataStore userDataStore) {
+        this.userDataStore = userDataStore;
     }
 
     /**
@@ -28,7 +28,7 @@ public class UserRepository implements CrudRepository<User> {
      */
     @Override
     public List<User> findAll() {
-        return dataStore.findAllUsers();
+        return userDataStore.findAll();
     }
 
     /**
@@ -60,7 +60,7 @@ public class UserRepository implements CrudRepository<User> {
      */
     @Override
     public Optional<User> findById(Long id) {
-        return dataStore.findUserById(id);
+        return userDataStore.findById(id);
     }
 
     /**
@@ -70,7 +70,7 @@ public class UserRepository implements CrudRepository<User> {
      */
     @Override
     public void create(User user) {
-        dataStore.createUser(user);
+        userDataStore.create(user);
     }
 
     /**
@@ -81,6 +81,6 @@ public class UserRepository implements CrudRepository<User> {
      * @return matching user's data as optional (can be empty)
      */
     public Optional<User> find(String login, String password) {
-        return dataStore.findUser(login, password);
+        return userDataStore.findByCredentials(login, password);
     }
 }

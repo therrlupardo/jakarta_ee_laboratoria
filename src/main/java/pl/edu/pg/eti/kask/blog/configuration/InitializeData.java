@@ -94,7 +94,7 @@ public class InitializeData {
      */
     private void initArticles() throws IOException, URISyntaxException {
         Path fellowShipOfTheRing = Paths.get(getClass().getResource("/articles/fellowshipOfTheRing.txt").toURI());
-        this.articleService.createArticle(Article.builder()
+        this.articleService.create(Article.builder()
                 .title("The Fellowship of the ring")
                 .author("J.R.R.Tolkien")
                 .creationTime(LocalDateTime.of(1954, 7, 29, 12, 0))
@@ -103,7 +103,7 @@ public class InitializeData {
                 .build());
 
         Path twoTowers = Paths.get(getClass().getResource("/articles/twoTowers.txt").toURI());
-        this.articleService.createArticle(Article.builder()
+        this.articleService.create(Article.builder()
                 .title("The Two Towers")
                 .author("J.R.R.Tolkien")
                 .creationTime(LocalDateTime.of(1954, 11, 11, 12, 0))
@@ -112,7 +112,7 @@ public class InitializeData {
                 .build());
 
         Path returnOfTheKing = Paths.get(getClass().getResource("/articles/returnOfTheKing.txt").toURI());
-        this.articleService.createArticle(Article.builder()
+        this.articleService.create(Article.builder()
                 .title("The Return of the king")
                 .author("J.R.R.Tolkien")
                 .creationTime(LocalDateTime.of(1954, 10, 20, 12, 0))

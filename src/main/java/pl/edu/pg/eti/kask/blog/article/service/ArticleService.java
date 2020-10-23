@@ -39,7 +39,7 @@ public class ArticleService implements Serializable {
      *
      * @param article article to be created
      */
-    public void createArticle(Article article) {
+    public void create(Article article) {
         articleRepository.create(article);
     }
 
@@ -68,7 +68,7 @@ public class ArticleService implements Serializable {
      * @param id      id of article to be updated
      * @param article data of article after update
      */
-    public void updateArticle(Long id, Article article) {
+    public void update(Long id, Article article) {
         articleRepository.update(id, article);
     }
 }
