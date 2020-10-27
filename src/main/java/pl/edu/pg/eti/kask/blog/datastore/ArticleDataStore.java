@@ -4,6 +4,7 @@ import pl.edu.pg.eti.kask.blog.article.entity.Article;
 import pl.edu.pg.eti.kask.blog.datastore.utils.DataStoreUtils;
 import pl.edu.pg.eti.kask.blog.utils.CloningUtility;
 
+import javax.enterprise.context.ApplicationScoped;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -12,6 +13,7 @@ import java.util.stream.Collectors;
  * <p>
  * Data store for {@link Article}
  */
+@ApplicationScoped
 public class ArticleDataStore {
 
     /**

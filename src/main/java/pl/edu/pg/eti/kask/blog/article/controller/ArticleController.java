@@ -11,6 +11,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
+import java.net.URI;
 import java.util.Optional;
 
 /**
@@ -46,7 +47,7 @@ public class ArticleController {
      * @return Response(200) with article in response body or Response(404) if article doesn't exist
      */
     @GET
-    @Path("{id}")
+    @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getArticleById(@PathParam("id") Long id) {
         Optional<Article> article = articleService.findById(id);
@@ -68,16 +69,19 @@ public class ArticleController {
     public Response createArticle(CreateArticleRequest request) {
         Article article = CreateArticleRequest.convertToEntity(request);
         articleService.create(article);
-        return Response.created(
-                UriBuilder.fromMethod(ArticleController.class, "getArticleById")
-                        .build(article.getId())
-        ).build();
+
+        URI getArticleByIdUri = URI.create(
+                UriBuilder.fromResource(ArticleController.class).build().getPath() +
+                        UriBuilder.fromMethod(ArticleController.class, "getArticleById").build(article.getId())
+        );
+
+        return Response.created(getArticleByIdUri).build();
     }
 
     /**
      * Updates article with given id
      *
-     * @param id id of article to be updated
+     * @param id      id of article to be updated
      * @param request HTTP request, with data of article, which should be updated
      * @return Response(200) if article was successfully updated, Response(404) if article with id doesn't exist
      */
@@ -96,6 +100,7 @@ public class ArticleController {
 
     /**
      * Deletes article with given id
+     *
      * @param id id of article to be deleted
      * @return Response(200) is article was deleted, Response(404) if no article with given id
      */

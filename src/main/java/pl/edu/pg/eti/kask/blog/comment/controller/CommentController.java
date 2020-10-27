@@ -13,6 +13,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
+import java.net.URI;
 import java.util.Optional;
 
 /**
@@ -82,10 +83,13 @@ public class CommentController {
         }
         Comment comment = CreateCommentRequest.convertToEntity(request, articleId);
         commentService.createComment(comment);
-        return Response.created(
-                UriBuilder.fromMethod(CommentController.class, "getCommentById")
-                        .build(articleId, request.getUserId())
-        ).build();
+
+        URI getCommentByIdUri = URI.create(
+                UriBuilder.fromResource(CommentController.class).build(articleId).getPath() +
+                        UriBuilder.fromMethod(CommentController.class, "getCommentById").build(comment.getId())
+        );
+
+        return Response.created(getCommentByIdUri).build();
     }
 
     /**
