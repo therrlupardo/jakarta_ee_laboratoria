@@ -1,0 +1,36 @@
+# Should return all articles
+GET http://localhost:9080/blog/api/articles
+Accept: application/json
+
+###
+
+# Should return article with given id
+GET http://localhost:9080/blog/api/articles/1
+Accept: application/json
+
+###
+
+# Should add new article
+POST http://localhost:9080/blog/api/articles
+Content-Type: application/json
+
+{
+  "title": "The Silmarillion",
+  "author": "J.R.R. Tolkien",
+  "Content": "There was Eru, the One, who in Arda is called Ilúvatar; and he made first the Ainur, the Holy Ones ..."
+}
+
+###
+
+# Should delete article with given id
+DELETE http://localhost:9080/blog/api/articles/4
+
+###
+
+# Should update article with given id
+PUT http://localhost:9080/blog/api/articles/4
+Content-Type: application/json
+
+{
+  "content": "UPDATED CONTENT"
+}

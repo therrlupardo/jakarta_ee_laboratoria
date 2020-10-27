@@ -48,4 +48,8 @@ public class User implements Serializable, Entity {
     public String getAvatarFileName() {
         return id + ".png";
     }
+
+    public boolean areCredentialsValid(String login, String password) {
+        return username.equals(login) && this.password.equals(password);
+    }
 }

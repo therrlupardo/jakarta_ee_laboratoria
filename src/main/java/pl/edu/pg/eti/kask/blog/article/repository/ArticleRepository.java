@@ -2,7 +2,8 @@ package pl.edu.pg.eti.kask.blog.article.repository;
 
 import pl.edu.pg.eti.kask.blog.article.entity.Article;
 import pl.edu.pg.eti.kask.blog.common.interfaces.CrudRepository;
-import pl.edu.pg.eti.kask.blog.datastore.DataStore;
+import pl.edu.pg.eti.kask.blog.datastore.ArticleDataStore;
+import pl.edu.pg.eti.kask.blog.datastore.CommentDataStore;
 
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
@@ -15,11 +16,13 @@ import java.util.Optional;
  */
 @Dependent
 public class ArticleRepository implements CrudRepository<Article> {
-    private final DataStore dataStore;
+    private final ArticleDataStore articleDataStore;
+    private final CommentDataStore commentDataStore;
 
     @Inject
-    public ArticleRepository(DataStore dataStore) {
-        this.dataStore = dataStore;
+    public ArticleRepository(ArticleDataStore articleDataStore, CommentDataStore commentDataStore) {
+        this.articleDataStore = articleDataStore;
+        this.commentDataStore = commentDataStore;
     }
 
     /**
@@ -30,7 +33,7 @@ public class ArticleRepository implements CrudRepository<Article> {
      */
     @Override
     public Optional<Article> findById(Long id) {
-        return dataStore.findArticleById(id);
+        return articleDataStore.findById(id);
     }
 
     /**
@@ -40,7 +43,7 @@ public class ArticleRepository implements CrudRepository<Article> {
      */
     @Override
     public List<Article> findAll() {
-        return dataStore.findAllArticles();
+        return articleDataStore.findAll();
     }
 
     /**
@@ -50,7 +53,7 @@ public class ArticleRepository implements CrudRepository<Article> {
      */
     @Override
     public void create(Article article) {
-        dataStore.createArticle(article);
+        articleDataStore.create(article);
     }
 
     /**
@@ -60,7 +63,9 @@ public class ArticleRepository implements CrudRepository<Article> {
      */
     @Override
     public void delete(Article article) {
-        dataStore.deleteArticle(article);
+        articleDataStore.delete(article);
+        commentDataStore.findAllByParentId(article.getId())
+                .forEach(commentDataStore::delete);
     }
 
     /**
@@ -71,6 +76,6 @@ public class ArticleRepository implements CrudRepository<Article> {
      */
     @Override
     public void update(Long id, Article article) {
-        throw new UnsupportedOperationException();
+        articleDataStore.update(id, article);
     }
 }

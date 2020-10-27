@@ -2,7 +2,7 @@ package pl.edu.pg.eti.kask.blog.comment.repository;
 
 import pl.edu.pg.eti.kask.blog.comment.entity.Comment;
 import pl.edu.pg.eti.kask.blog.common.interfaces.CrudRepository;
-import pl.edu.pg.eti.kask.blog.datastore.DataStore;
+import pl.edu.pg.eti.kask.blog.datastore.CommentDataStore;
 
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
@@ -17,10 +17,10 @@ import java.util.Optional;
 @Dependent
 public class CommentRepository implements Serializable, CrudRepository<Comment> {
 
-    private final DataStore dataStore;
+    private final CommentDataStore dataStore;
 
     @Inject
-    public CommentRepository(DataStore dataStore) {
+    public CommentRepository(CommentDataStore dataStore) {
         this.dataStore = dataStore;
     }
 
@@ -31,7 +31,7 @@ public class CommentRepository implements Serializable, CrudRepository<Comment> 
      * @return list of comments under article
      */
     public List<Comment> findAllByArticleId(Long articleId) {
-        return dataStore.findAllCommentByArticleId(articleId);
+        return dataStore.findAllByParentId(articleId);
     }
 
     /**
@@ -42,7 +42,7 @@ public class CommentRepository implements Serializable, CrudRepository<Comment> 
      */
     @Override
     public Optional<Comment> findById(Long id) {
-        return dataStore.findCommentById(id);
+        return dataStore.findById(id);
     }
 
     /**
@@ -62,7 +62,7 @@ public class CommentRepository implements Serializable, CrudRepository<Comment> 
      */
     @Override
     public void create(Comment comment) {
-        dataStore.createComment(comment);
+        dataStore.create(comment);
     }
 
     /**
@@ -72,7 +72,7 @@ public class CommentRepository implements Serializable, CrudRepository<Comment> 
      */
     @Override
     public void delete(Comment comment) {
-        dataStore.deleteComment(comment);
+        dataStore.delete(comment);
     }
 
     /**
@@ -83,6 +83,17 @@ public class CommentRepository implements Serializable, CrudRepository<Comment> 
      */
     @Override
     public void update(Long id, Comment comment) {
-        dataStore.updateComment(id, comment);
+        dataStore.update(id, comment);
+    }
+
+    /**
+     * Searches for comment with given id from article with given articleId
+     *
+     * @param articleId id of article
+     * @param commentId id of comment
+     * @return comment with matching id's as optional (can be empty)
+     */
+    public Optional<Comment> findOneByArticleId(Long articleId, Long commentId) {
+        return dataStore.findOneByParentId(articleId, commentId);
     }
 }

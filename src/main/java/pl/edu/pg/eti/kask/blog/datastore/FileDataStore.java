@@ -2,6 +2,7 @@ package pl.edu.pg.eti.kask.blog.datastore;
 
 import pl.edu.pg.eti.kask.blog.user.entity.User;
 
+import javax.enterprise.context.ApplicationScoped;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,6 +12,7 @@ import java.nio.file.*;
  * @author mateusz.buchajewicz
  * Data store dedicated to storing files (ie. user's avatars)
  */
+@ApplicationScoped
 public class FileDataStore {
 
     private final Path root;
