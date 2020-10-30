@@ -1,6 +1,7 @@
 package pl.edu.pg.eti.kask.blog.comment.controller;
 
 import lombok.NoArgsConstructor;
+import pl.edu.pg.eti.kask.blog.article.controller.ArticleController;
 import pl.edu.pg.eti.kask.blog.article.entity.Article;
 import pl.edu.pg.eti.kask.blog.article.service.ArticleService;
 import pl.edu.pg.eti.kask.blog.comment.dto.CreateCommentRequest;
@@ -15,6 +16,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
+import java.net.URI;
 import java.util.Optional;
 
 /**
@@ -86,10 +88,11 @@ public class CommentController {
         if (article.isPresent()) {
             Comment comment = CreateCommentRequest.convertToEntity(request, article.get());
             commentService.createComment(comment);
-            return Response.created(
-                    UriBuilder.fromMethod(CommentController.class, "getCommentById")
-                            .build(articleId, request.getUserId())
-            ).build();
+            URI getCommentByIdUri = URI.create(
+                    UriBuilder.fromResource(CommentController.class).build(articleId).getPath() +
+                            UriBuilder.fromMethod(CommentController.class, "getCommentById").build(comment.getId())
+            );
+            return Response.created(getCommentByIdUri).build();
         } else {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
