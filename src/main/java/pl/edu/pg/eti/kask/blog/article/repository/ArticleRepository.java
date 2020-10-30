@@ -1,12 +1,12 @@
 package pl.edu.pg.eti.kask.blog.article.repository;
 
+import lombok.extern.java.Log;
 import pl.edu.pg.eti.kask.blog.article.entity.Article;
 import pl.edu.pg.eti.kask.blog.common.interfaces.CrudRepository;
-import pl.edu.pg.eti.kask.blog.datastore.ArticleDataStore;
-import pl.edu.pg.eti.kask.blog.datastore.CommentDataStore;
 
-import javax.enterprise.context.Dependent;
-import javax.inject.Inject;
+import javax.enterprise.context.RequestScoped;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,16 +14,14 @@ import java.util.Optional;
  * @author mateusz.buchajewicz
  * Repository for Article entity
  */
-@Dependent
+@Log
+@RequestScoped
 public class ArticleRepository implements CrudRepository<Article> {
-    private final ArticleDataStore articleDataStore;
-    private final CommentDataStore commentDataStore;
+    private EntityManager em;
 
-    @Inject
-    public ArticleRepository(ArticleDataStore articleDataStore, CommentDataStore commentDataStore) {
-        this.articleDataStore = articleDataStore;
-        this.commentDataStore = commentDataStore;
-    }
+    @PersistenceContext
+    public void setEm(EntityManager em) { this.em = em; }
+
 
     /**
      * Searches for article with given id
@@ -33,7 +31,7 @@ public class ArticleRepository implements CrudRepository<Article> {
      */
     @Override
     public Optional<Article> findById(Long id) {
-        return articleDataStore.findById(id);
+        return Optional.ofNullable(em.find(Article.class, id));
     }
 
     /**
@@ -43,7 +41,7 @@ public class ArticleRepository implements CrudRepository<Article> {
      */
     @Override
     public List<Article> findAll() {
-        return articleDataStore.findAll();
+        return em.createQuery("SELECT a FROM Article a", Article.class).getResultList();
     }
 
     /**
@@ -53,7 +51,7 @@ public class ArticleRepository implements CrudRepository<Article> {
      */
     @Override
     public void create(Article article) {
-        articleDataStore.create(article);
+        em.persist(article);
     }
 
     /**
@@ -63,9 +61,7 @@ public class ArticleRepository implements CrudRepository<Article> {
      */
     @Override
     public void delete(Article article) {
-        articleDataStore.delete(article);
-        commentDataStore.findAllByParentId(article.getId())
-                .forEach(commentDataStore::delete);
+        em.remove(em.find(Article.class, article.getId()));
     }
 
     /**
@@ -76,6 +72,6 @@ public class ArticleRepository implements CrudRepository<Article> {
      */
     @Override
     public void update(Long id, Article article) {
-        articleDataStore.update(id, article);
+        em.merge(article);
     }
 }

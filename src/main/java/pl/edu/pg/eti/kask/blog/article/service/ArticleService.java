@@ -6,6 +6,7 @@ import pl.edu.pg.eti.kask.blog.article.repository.ArticleRepository;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
@@ -39,6 +40,7 @@ public class ArticleService implements Serializable {
      *
      * @param article article to be created
      */
+    @Transactional
     public void create(Article article) {
         articleRepository.create(article);
     }
@@ -48,6 +50,7 @@ public class ArticleService implements Serializable {
      *
      * @param article article to be deleted
      */
+    @Transactional
     public void delete(Article article) {
         articleRepository.delete(article);
     }
@@ -68,6 +71,7 @@ public class ArticleService implements Serializable {
      * @param id      id of article to be updated
      * @param article data of article after update
      */
+    @Transactional
     public void update(Long id, Article article) {
         articleRepository.update(id, article);
     }

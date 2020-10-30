@@ -6,9 +6,11 @@ import pl.edu.pg.eti.kask.blog.comment.entity.Comment;
 import pl.edu.pg.eti.kask.blog.comment.service.CommentService;
 import pl.edu.pg.eti.kask.blog.user.entity.User;
 import pl.edu.pg.eti.kask.blog.user.service.UserService;
+import pl.edu.pg.eti.kask.blog.utils.Sha256HashingUtility;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.Initialized;
+import javax.enterprise.context.control.RequestContextController;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 import java.io.IOException;
@@ -29,12 +31,14 @@ public class InitializeData {
     private final UserService userService;
     private final ArticleService articleService;
     private final CommentService commentService;
+    private final RequestContextController requestContextController;
 
     @Inject
-    public InitializeData(UserService userService, ArticleService articleService, CommentService commentService) {
+    public InitializeData(UserService userService, ArticleService articleService, CommentService commentService, RequestContextController requestContextController) {
         this.userService = userService;
         this.articleService = articleService;
         this.commentService = commentService;
+        this.requestContextController = requestContextController;
     }
 
     /**
@@ -56,29 +60,31 @@ public class InitializeData {
      * @throws IOException thrown if any input/output exception
      */
     private synchronized void init() throws URISyntaxException, IOException {
+        requestContextController.activate();
         initUsers();
         initArticles();
         initComments();
+        requestContextController.deactivate();
     }
 
     private void initComments() {
         commentService.createComment(Comment.builder()
-                .articleId(1L)
-                .userId(1L)
+                .article(articleService.findAll().get(0))
+                .userId(userService.findAll().get(0).getId())
                 .content("Best book ever!")
                 .creationTime(LocalDateTime.now())
                 .numberOfLikes(5689321L)
                 .build());
         commentService.createComment(Comment.builder()
-                .articleId(1L)
-                .userId(2L)
+                .article(articleService.findAll().get(0))
+                .userId(userService.findAll().get(1).getId())
                 .content("Damn Nazguls, we couldn't event eat potatoes!")
                 .creationTime(LocalDateTime.now())
                 .numberOfLikes(1234L)
                 .build());
         commentService.createComment(Comment.builder()
-                .articleId(1L)
-                .userId(3L)
+                .article(articleService.findAll().get(0))
+                .userId(userService.findAll().get(2).getId())
                 .content("@Pippin, look at that!")
                 .creationTime(LocalDateTime.now())
                 .numberOfLikes(-12L)
@@ -127,25 +133,25 @@ public class InitializeData {
     private void initUsers() {
         userService.createUser(User.builder()
                 .username("frodo")
-                .password("8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918") // admin
+                .password(Sha256HashingUtility.hash("admin"))
                 .birthdate(LocalDate.of(2980, 9, 22))
                 .build()
         );
         userService.createUser(User.builder()
                 .username("sam")
-                .password("292bdd381b06dfb9fee4a0be10048bb6e8331963b3a4ec490ce0dab333468040") // potatoes
+                .password(Sha256HashingUtility.hash("potatoes"))
                 .birthdate(LocalDate.of(2983, 5, 1))
                 .build()
         );
         userService.createUser(User.builder()
                 .username("merry")
-                .password("65e84be33532fb784c48129675f9eff3a682b27168c0ea744b2cf58ee02337c5") // qwerty
+                .password(Sha256HashingUtility.hash("qwerty"))
                 .birthdate(LocalDate.of(2982, 12, 2))
                 .build()
         );
         userService.createUser(User.builder()
                 .username("pippin")
-                .password("0ca18fa26bd10ec5f20286a5364937b969c73a934b96610005c67cedb9d13ae3") // okoń
+                .password(Sha256HashingUtility.hash("okoń"))
                 .birthdate(LocalDate.of(2980, 3, 2))
                 .build()
         );

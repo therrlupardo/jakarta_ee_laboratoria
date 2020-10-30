@@ -1,8 +1,9 @@
 package pl.edu.pg.eti.kask.blog.comment.entity;
 
 import lombok.*;
-import pl.edu.pg.eti.kask.blog.common.interfaces.Entity;
+import pl.edu.pg.eti.kask.blog.article.entity.Article;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -12,13 +13,17 @@ import java.time.LocalDateTime;
  * Represents information about particular comment, article comment was added to and user which added comment.
  */
 @Data
+@Entity
+@Table(name = "comments")
 @Builder
 @NoArgsConstructor
-@AllArgsConstructor(access= AccessLevel.PRIVATE)
-public class Comment implements Entity, Serializable {
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+public class Comment implements Serializable {
     /**
      * Comment's id
      */
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     /**
@@ -26,10 +31,11 @@ public class Comment implements Entity, Serializable {
      */
     private String content;
 
-    /**
-     * Id of article, under which comment was added
-     */
-    private Long articleId;
+            @EqualsAndHashCode.Exclude
+            @ToString.Exclude
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "article")
+    private Article article;
 
     /**
      * Id of user which added comment

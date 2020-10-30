@@ -4,6 +4,8 @@ import lombok.NoArgsConstructor;
 import pl.edu.pg.eti.kask.blog.article.entity.Article;
 import pl.edu.pg.eti.kask.blog.article.service.ArticleService;
 import pl.edu.pg.eti.kask.blog.comment.dto.CreateCommentRequest;
+import pl.edu.pg.eti.kask.blog.comment.dto.GetCommentResponse;
+import pl.edu.pg.eti.kask.blog.comment.dto.GetCommentsResponse;
 import pl.edu.pg.eti.kask.blog.comment.dto.UpdateCommentRequest;
 import pl.edu.pg.eti.kask.blog.comment.entity.Comment;
 import pl.edu.pg.eti.kask.blog.comment.service.CommentService;
@@ -45,7 +47,11 @@ public class CommentController {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getComments(@PathParam("articleId") Long articleId) {
-        return Response.ok(commentService.findAllByArticleId(articleId)).build();
+        Optional<Article> article = articleService.findById(articleId);
+        if (article.isEmpty()) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+        return Response.ok(GetCommentsResponse.convertFromEntities(commentService.findAllByArticleId(articleId))).build();
     }
 
     /**
@@ -61,7 +67,7 @@ public class CommentController {
     public Response getCommentById(@PathParam("articleId") Long articleId, @PathParam("commentId") Long commentId) {
         Optional<Comment> comment = commentService.findOneByArticleId(articleId, commentId);
         if (comment.isPresent()) {
-            return Response.ok(comment.get()).build();
+            return Response.ok(GetCommentResponse.convertFromEntity(comment.get())).build();
         }
         return Response.status(Response.Status.NOT_FOUND).build();
     }
@@ -74,18 +80,19 @@ public class CommentController {
      * @return Response(201) if added correctly, Response(404) if article doesn't exist
      */
     @POST
-    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
     public Response createComment(@PathParam("articleId") Long articleId, CreateCommentRequest request) {
         Optional<Article> article = articleService.findById(articleId);
-        if (article.isEmpty()) {
+        if (article.isPresent()) {
+            Comment comment = CreateCommentRequest.convertToEntity(request, article.get());
+            commentService.createComment(comment);
+            return Response.created(
+                    UriBuilder.fromMethod(CommentController.class, "getCommentById")
+                            .build(articleId, request.getUserId())
+            ).build();
+        } else {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
-        Comment comment = CreateCommentRequest.convertToEntity(request, articleId);
-        commentService.createComment(comment);
-        return Response.created(
-                UriBuilder.fromMethod(CommentController.class, "getCommentById")
-                        .build(articleId, request.getUserId())
-        ).build();
     }
 
     /**
@@ -98,7 +105,7 @@ public class CommentController {
      */
     @PUT
     @Path("{commentId}")
-    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
     public Response updateComment(@PathParam("articleId") Long articleId, @PathParam("commentId") Long commentId, UpdateCommentRequest request) {
         Optional<Comment> comment = commentService.findOneByArticleId(articleId, commentId);
         if (comment.isPresent()) {
@@ -117,7 +124,7 @@ public class CommentController {
      */
     @DELETE
     @Path("{commentId}")
-    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
     public Response deleteComment(@PathParam("articleId") Long articleId, @PathParam("commentId") Long commentId) {
         Optional<Comment> comment = commentService.findOneByArticleId(articleId, commentId);
         if (comment.isPresent()) {

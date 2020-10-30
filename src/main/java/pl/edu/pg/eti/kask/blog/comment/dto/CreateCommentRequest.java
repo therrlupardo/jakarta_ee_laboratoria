@@ -1,6 +1,7 @@
 package pl.edu.pg.eti.kask.blog.comment.dto;
 
 import lombok.*;
+import pl.edu.pg.eti.kask.blog.article.entity.Article;
 import pl.edu.pg.eti.kask.blog.comment.entity.Comment;
 
 /**
@@ -31,15 +32,15 @@ public class CreateCommentRequest {
     /**
      * Converts CreateCommentRequest to Comment
      *
-     * @param request   data of new comment
-     * @param articleId unique identifier of article, to which comment was added
+     * @param request data of new comment
+     * @param article article to which comment should be added
      * @return converted entity
      */
-    public static Comment convertToEntity(CreateCommentRequest request, Long articleId) {
+    public static Comment convertToEntity(CreateCommentRequest request, Article article) {
         return Comment.builder()
                 .userId(request.getUserId())
+                .article(article)
                 .content(request.getContent())
-                .articleId(articleId)
                 .build();
     }
 }

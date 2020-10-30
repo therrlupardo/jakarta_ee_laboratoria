@@ -43,6 +43,7 @@ public class ArticleModel {
 
     /**
      * Converts Article to ArticleModel
+     *
      * @param entity entity of article to be converted
      * @return entity converted to ArticleModel
      */
@@ -57,4 +58,20 @@ public class ArticleModel {
                 .build();
     }
 
+    /**
+     * Converts ArticleModel to Article
+     *
+     * @param article entity of article
+     * @return converted object
+     */
+    public static Article convertToEntity(ArticleModel article) {
+        return Article.builder()
+                .id(article.getId())
+                .title(article.getTitle())
+                .author(article.getAuthor())
+                .creationTime(article.getCreationTime())
+                .numberOfLikes(article.getNumberOfLikes())
+                .content(article.getContent())
+                .build();
+    }
 }

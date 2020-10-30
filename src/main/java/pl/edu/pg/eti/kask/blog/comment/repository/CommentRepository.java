@@ -2,10 +2,11 @@ package pl.edu.pg.eti.kask.blog.comment.repository;
 
 import pl.edu.pg.eti.kask.blog.comment.entity.Comment;
 import pl.edu.pg.eti.kask.blog.common.interfaces.CrudRepository;
-import pl.edu.pg.eti.kask.blog.datastore.CommentDataStore;
 
-import javax.enterprise.context.Dependent;
-import javax.inject.Inject;
+import javax.enterprise.context.RequestScoped;
+import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.PersistenceContext;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
@@ -14,14 +15,14 @@ import java.util.Optional;
  * @author mateusz.buchajewicz
  * Repository for {@link Comment} class
  */
-@Dependent
+@RequestScoped
 public class CommentRepository implements Serializable, CrudRepository<Comment> {
 
-    private final CommentDataStore dataStore;
+    private EntityManager em;
 
-    @Inject
-    public CommentRepository(CommentDataStore dataStore) {
-        this.dataStore = dataStore;
+    @PersistenceContext
+    public void setEm(EntityManager em) {
+        this.em = em;
     }
 
     /**
@@ -31,7 +32,10 @@ public class CommentRepository implements Serializable, CrudRepository<Comment> 
      * @return list of comments under article
      */
     public List<Comment> findAllByArticleId(Long articleId) {
-        return dataStore.findAllByParentId(articleId);
+        return em.createQuery("SELECT c FROM Comment c WHERE c.article.id = :articleId", Comment.class)
+                .setParameter("articleId", articleId)
+                .getResultList();
+
     }
 
     /**
@@ -42,7 +46,7 @@ public class CommentRepository implements Serializable, CrudRepository<Comment> 
      */
     @Override
     public Optional<Comment> findById(Long id) {
-        return dataStore.findById(id);
+        return Optional.ofNullable(em.find(Comment.class, id));
     }
 
     /**
@@ -52,7 +56,7 @@ public class CommentRepository implements Serializable, CrudRepository<Comment> 
      */
     @Override
     public List<Comment> findAll() {
-        throw new UnsupportedOperationException();
+        return em.createQuery("SELECT c FROM Comment c", Comment.class).getResultList();
     }
 
     /**
@@ -62,7 +66,7 @@ public class CommentRepository implements Serializable, CrudRepository<Comment> 
      */
     @Override
     public void create(Comment comment) {
-        dataStore.create(comment);
+        em.persist(comment);
     }
 
     /**
@@ -72,7 +76,7 @@ public class CommentRepository implements Serializable, CrudRepository<Comment> 
      */
     @Override
     public void delete(Comment comment) {
-        dataStore.delete(comment);
+        em.remove(em.find(Comment.class, comment.getId()));
     }
 
     /**
@@ -83,7 +87,7 @@ public class CommentRepository implements Serializable, CrudRepository<Comment> 
      */
     @Override
     public void update(Long id, Comment comment) {
-        dataStore.update(id, comment);
+        em.merge(comment);
     }
 
     /**
@@ -94,6 +98,16 @@ public class CommentRepository implements Serializable, CrudRepository<Comment> 
      * @return comment with matching id's as optional (can be empty)
      */
     public Optional<Comment> findOneByArticleId(Long articleId, Long commentId) {
-        return dataStore.findOneByParentId(articleId, commentId);
+        try {
+            return Optional.of(
+                    em.createQuery("SELECT c FROM Comment c WHERE c.id = :commentId AND c.article.id = :articleId", Comment.class)
+                    .setParameter("articleId", articleId)
+                    .setParameter("commentId", commentId)
+                    .getSingleResult()
+            );
+        } catch (NoResultException e) {
+            return Optional.empty();
+        }
+
     }
 }
