@@ -5,7 +5,7 @@ Accept: application/json
 ###
 
 # Should return comment with given commentId, from article with given articleId
-GET http://localhost:9080/blog/api/articles/8/comments/12
+GET http://localhost:9080/blog/api/articles/5/comments/12
 Accept: application/json
 
 ###

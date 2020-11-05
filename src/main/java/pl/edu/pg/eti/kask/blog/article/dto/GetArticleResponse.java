@@ -60,7 +60,6 @@ public class GetArticleResponse {
                 .content(article.getContent())
                 .author(article.getAuthor())
                 .creationTime(article.getCreationTime())
-                .comments(GetCommentsResponse.convertFromEntities(article.getComments()).getComments())
                 .build();
     }
 }

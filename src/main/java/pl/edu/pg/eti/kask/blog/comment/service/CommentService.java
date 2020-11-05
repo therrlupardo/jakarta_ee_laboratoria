@@ -47,7 +47,8 @@ public class CommentService implements Serializable {
     @Transactional
     public void createComment(Comment comment) {
         commentRepository.create(comment);
-        articleRepository.findById(comment.getArticle().getId()).ifPresent(article -> article.getComments().add(comment));
+        articleRepository.findById(comment.getArticle().getId())
+                .ifPresent(article -> article.getComments().add(comment));
     }
 
     /**

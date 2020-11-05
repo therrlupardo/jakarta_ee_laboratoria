@@ -31,9 +31,9 @@ public class Comment implements Serializable {
      */
     private String content;
 
-            @EqualsAndHashCode.Exclude
-            @ToString.Exclude
-    @ManyToOne(fetch = FetchType.EAGER)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @ManyToOne
     @JoinColumn(name = "article")
     private Article article;
 
