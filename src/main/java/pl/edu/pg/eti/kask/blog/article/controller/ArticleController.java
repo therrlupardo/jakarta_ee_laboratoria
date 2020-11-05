@@ -2,6 +2,8 @@ package pl.edu.pg.eti.kask.blog.article.controller;
 
 import lombok.NoArgsConstructor;
 import pl.edu.pg.eti.kask.blog.article.dto.CreateArticleRequest;
+import pl.edu.pg.eti.kask.blog.article.dto.GetArticleResponse;
+import pl.edu.pg.eti.kask.blog.article.dto.GetArticlesResponse;
 import pl.edu.pg.eti.kask.blog.article.dto.UpdateArticleRequest;
 import pl.edu.pg.eti.kask.blog.article.entity.Article;
 import pl.edu.pg.eti.kask.blog.article.service.ArticleService;
@@ -37,7 +39,7 @@ public class ArticleController {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getArticles() {
-        return Response.ok(this.articleService.findAll()).build();
+        return Response.ok(GetArticlesResponse.convertFromEntities(this.articleService.findAll())).build();
     }
 
     /**
@@ -52,7 +54,7 @@ public class ArticleController {
     public Response getArticleById(@PathParam("id") Long id) {
         Optional<Article> article = articleService.findById(id);
         if (article.isPresent()) {
-            return Response.ok(article.get()).build();
+            return Response.ok(GetArticleResponse.convertFromEntity(article.get())).build();
         } else {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
@@ -65,7 +67,7 @@ public class ArticleController {
      * @return Response(201 CREATED) after creation of article
      */
     @POST
-    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
     public Response createArticle(CreateArticleRequest request) {
         Article article = CreateArticleRequest.convertToEntity(request);
         articleService.create(article);
@@ -87,7 +89,7 @@ public class ArticleController {
      */
     @PUT
     @Path("{id}")
-    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
     public Response updateArticle(@PathParam("id") Long id, UpdateArticleRequest request) {
         Optional<Article> article = articleService.findById(id);
         if (article.isPresent()) {
@@ -106,7 +108,7 @@ public class ArticleController {
      */
     @DELETE
     @Path("{id}")
-    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
     public Response deleteArticle(@PathParam("id") Long id) {
         Optional<Article> article = articleService.findById(id);
         if (article.isPresent()) {

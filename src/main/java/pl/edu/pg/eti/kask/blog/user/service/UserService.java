@@ -7,6 +7,7 @@ import pl.edu.pg.eti.kask.blog.utils.Sha256HashingUtility;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
@@ -48,6 +49,7 @@ public class UserService implements Serializable {
      *
      * @param user user to be created
      */
+    @Transactional
     public void createUser(User user) {
         userRepository.create(user);
     }

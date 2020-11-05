@@ -1,28 +1,28 @@
 # Should return all comments for article with given id
-GET http://localhost:9080/blog/api/articles/1/comments
+GET http://localhost:9080/blog/api/articles/5/comments
 Accept: application/json
 
 ###
 
 # Should return comment with given commentId, from article with given articleId
-GET http://localhost:9080/blog/api/articles/1/comments/1
+GET http://localhost:9080/blog/api/articles/5/comments/12
 Accept: application/json
 
 ###
 
 # Should add new comment to article with given id
-POST http://localhost:9080/blog/api/articles/1/comments
+POST http://localhost:9080/blog/api/articles/5/comments
 Content-Type: application/json
 
 {
   "userId": 1,
-  "content": "AWESOME BOOK"
+  "content": "AWESOME BOOK3"
 }
 
 ###
 
 # Should update comment with given id, from article with given article id
-PUT http://localhost:9080/blog/api/articles/1/comments/1
+PUT http://localhost:9080/blog/api/articles/5/comments/11
 Content-Type: application/json
 
 {
@@ -32,5 +32,5 @@ Content-Type: application/json
 ###
 
 # Should delete comment with given id, from article with given articleId
-DELETE http://localhost:9080/blog/api/articles/1/comments/1
+DELETE http://localhost:9080/blog/api/articles/5/comments/8
 Accept: application/json

@@ -65,7 +65,7 @@ public class CommentModel {
      * @throws IOException thrown if any input/output exception
      */
     public static CommentModel convertFromEntity(Comment comment, UserService userService, ArticleService articleService) throws IOException {
-        Optional<Article> article = articleService.findById(comment.getArticleId());
+        Optional<Article> article = articleService.findById(comment.getArticle().getId());
         Optional<User> author = userService.findById(comment.getUserId());
         if (article.isPresent() && author.isPresent()) {
             return CommentModel.builder()
@@ -92,7 +92,7 @@ public class CommentModel {
     public static Comment convertToEntity(CommentModel comment) {
         return Comment.builder()
                 .id(comment.getId())
-                .articleId(comment.getArticle().getId())
+                .article(ArticleModel.convertToEntity(comment.getArticle()))
                 .userId(comment.getAuthor().getId())
                 .content(comment.getContent())
                 .creationTime(comment.getCreationTime())

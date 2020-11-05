@@ -1,12 +1,11 @@
 package pl.edu.pg.eti.kask.blog.user.entity;
 
 import lombok.*;
-import pl.edu.pg.eti.kask.blog.comment.entity.Comment;
-import pl.edu.pg.eti.kask.blog.common.interfaces.Entity;
+import pl.edu.pg.eti.kask.blog.utils.Sha256HashingUtility;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.List;
 
 /**
  * @author mateusz.buchajewicz
@@ -14,13 +13,17 @@ import java.util.List;
  * Represents information about particular user, including his credentials.
  */
 @Data
+@Entity
+@Table(name = "users")
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class User implements Serializable, Entity {
+public class User implements Serializable {
     /**
      * User's id
      */
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     /**
@@ -29,7 +32,7 @@ public class User implements Serializable, Entity {
     private String username;
 
     /**
-     * User's password, hashed with {@link pl.edu.pg.eti.kask.blog.utils.Sha256HashingUtility}
+     * User's password, hashed with {@link Sha256HashingUtility}
      */
     private String password;
 
@@ -38,18 +41,11 @@ public class User implements Serializable, Entity {
      */
     private LocalDate birthdate;
 
-    /**
-     * List of comments added by user
-     */
-    private List<Comment> comments;
-
+    @Lob
+    @Basic(fetch = FetchType.LAZY)
     private byte[] avatar;
 
     public String getAvatarFileName() {
         return id + ".png";
-    }
-
-    public boolean areCredentialsValid(String login, String password) {
-        return username.equals(login) && this.password.equals(password);
     }
 }

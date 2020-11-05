@@ -1,12 +1,13 @@
 package pl.edu.pg.eti.kask.blog.user.repository;
 
 import pl.edu.pg.eti.kask.blog.common.interfaces.CrudRepository;
-import pl.edu.pg.eti.kask.blog.datastore.UserDataStore;
 import pl.edu.pg.eti.kask.blog.user.entity.User;
 import pl.edu.pg.eti.kask.blog.utils.Sha256HashingUtility;
 
-import javax.enterprise.context.Dependent;
-import javax.inject.Inject;
+import javax.enterprise.context.RequestScoped;
+import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,13 +15,14 @@ import java.util.Optional;
  * @author mateusz.buchajewicz
  * Repository for user entity
  */
-@Dependent
+@RequestScoped
 public class UserRepository implements CrudRepository<User> {
-    private final UserDataStore userDataStore;
 
-    @Inject
-    public UserRepository(UserDataStore userDataStore) {
-        this.userDataStore = userDataStore;
+    private EntityManager em;
+
+    @PersistenceContext
+    public void setEm(EntityManager em) {
+        this.em = em;
     }
 
     /**
@@ -28,7 +30,7 @@ public class UserRepository implements CrudRepository<User> {
      */
     @Override
     public List<User> findAll() {
-        return userDataStore.findAll();
+        return em.createQuery("SELECT u FROM User u", User.class).getResultList();
     }
 
     /**
@@ -38,7 +40,7 @@ public class UserRepository implements CrudRepository<User> {
      */
     @Override
     public void delete(User user) {
-        throw new UnsupportedOperationException();
+        em.remove(em.find(User.class, user.getId()));
     }
 
     /**
@@ -49,7 +51,7 @@ public class UserRepository implements CrudRepository<User> {
      */
     @Override
     public void update(Long id, User user) {
-        throw new UnsupportedOperationException();
+        em.merge(user);
     }
 
     /**
@@ -60,7 +62,7 @@ public class UserRepository implements CrudRepository<User> {
      */
     @Override
     public Optional<User> findById(Long id) {
-        return userDataStore.findById(id);
+        return Optional.ofNullable(em.find(User.class, id));
     }
 
     /**
@@ -70,7 +72,7 @@ public class UserRepository implements CrudRepository<User> {
      */
     @Override
     public void create(User user) {
-        userDataStore.create(user);
+        em.persist(user);
     }
 
     /**
@@ -81,6 +83,14 @@ public class UserRepository implements CrudRepository<User> {
      * @return matching user's data as optional (can be empty)
      */
     public Optional<User> find(String login, String password) {
-        return userDataStore.findByCredentials(login, password);
+        try {
+            return Optional.of(em.createQuery("SELECT u FROM User u WHERE u.username = :login AND u.password = :password", User.class)
+            .setParameter("login", login)
+            .setParameter("password", password)
+                    .getSingleResult()
+            );
+        } catch (NoResultException e) {
+            return Optional.empty();
+        }
     }
 }

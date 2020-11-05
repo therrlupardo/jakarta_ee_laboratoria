@@ -1,10 +1,12 @@
 package pl.edu.pg.eti.kask.blog.article.entity;
 
 import lombok.*;
-import pl.edu.pg.eti.kask.blog.common.interfaces.Entity;
+import pl.edu.pg.eti.kask.blog.comment.entity.Comment;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * @author mateusz.buchajewicz
@@ -12,13 +14,17 @@ import java.time.LocalDateTime;
  * Describes it's title, author, content and creation date and time.
  */
 @Data
+@Entity
+@Table(name = "article")
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class Article implements Serializable, Entity {
+public class Article implements Serializable {
     /**
      * Article's id
      */
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     /**
@@ -45,4 +51,17 @@ public class Article implements Serializable, Entity {
      * Number of "likes" added to article
      */
     private Long numberOfLikes;
+
+    /**
+     * List of comments
+     */
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @OneToMany(
+            mappedBy = "article",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            fetch = FetchType.LAZY
+    )
+    private List<Comment> comments;
 }

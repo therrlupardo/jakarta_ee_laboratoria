@@ -1,11 +1,13 @@
 package pl.edu.pg.eti.kask.blog.comment.service;
 
 import lombok.NoArgsConstructor;
+import pl.edu.pg.eti.kask.blog.article.repository.ArticleRepository;
 import pl.edu.pg.eti.kask.blog.comment.entity.Comment;
 import pl.edu.pg.eti.kask.blog.comment.repository.CommentRepository;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
@@ -19,10 +21,12 @@ import java.util.Optional;
 public class CommentService implements Serializable {
 
     private CommentRepository commentRepository;
+    private ArticleRepository articleRepository;
 
     @Inject
-    public CommentService(CommentRepository commentRepository) {
+    public CommentService(CommentRepository commentRepository, ArticleRepository articleRepository) {
         this.commentRepository = commentRepository;
+        this.articleRepository = articleRepository;
     }
 
     /**
@@ -40,8 +44,11 @@ public class CommentService implements Serializable {
      *
      * @param comment data of comment to be created
      */
+    @Transactional
     public void createComment(Comment comment) {
         commentRepository.create(comment);
+        articleRepository.findById(comment.getArticle().getId())
+                .ifPresent(article -> article.getComments().add(comment));
     }
 
     /**
@@ -49,6 +56,7 @@ public class CommentService implements Serializable {
      *
      * @param comment comment to be deleted
      */
+    @Transactional
     public void delete(Comment comment) {
         commentRepository.delete(comment);
     }
@@ -69,6 +77,7 @@ public class CommentService implements Serializable {
      * @param id identifier of comment to update
      * @param comment data of updated comment
      */
+    @Transactional
     public void updateComment(Long id, Comment comment) {
         commentRepository.update(id, comment);
     }
