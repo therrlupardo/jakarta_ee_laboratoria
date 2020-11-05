@@ -49,7 +49,7 @@ public class GetCommentResponse {
     public static GetCommentResponse convertFromEntity(Comment comment) {
         return GetCommentResponse.builder()
                 .id(comment.getId())
-                .authorId(comment.getUserId())
+                .authorId(comment.getUser().getId())
                 .articleId(comment.getId())
                 .content(comment.getContent())
                 .creationTime(comment.getCreationTime())

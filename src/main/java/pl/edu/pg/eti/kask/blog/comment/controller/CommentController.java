@@ -1,7 +1,6 @@
 package pl.edu.pg.eti.kask.blog.comment.controller;
 
 import lombok.NoArgsConstructor;
-import pl.edu.pg.eti.kask.blog.article.controller.ArticleController;
 import pl.edu.pg.eti.kask.blog.article.entity.Article;
 import pl.edu.pg.eti.kask.blog.article.service.ArticleService;
 import pl.edu.pg.eti.kask.blog.comment.dto.CreateCommentRequest;
@@ -10,6 +9,8 @@ import pl.edu.pg.eti.kask.blog.comment.dto.GetCommentsResponse;
 import pl.edu.pg.eti.kask.blog.comment.dto.UpdateCommentRequest;
 import pl.edu.pg.eti.kask.blog.comment.entity.Comment;
 import pl.edu.pg.eti.kask.blog.comment.service.CommentService;
+import pl.edu.pg.eti.kask.blog.user.entity.User;
+import pl.edu.pg.eti.kask.blog.user.service.UserService;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -29,6 +30,7 @@ import java.util.Optional;
 public class CommentController {
     private CommentService commentService;
     private ArticleService articleService;
+    private UserService userService;
 
     @Inject
     public void setCommentService(CommentService commentService) {
@@ -39,6 +41,9 @@ public class CommentController {
     public void setArticleService(ArticleService articleService) {
         this.articleService = articleService;
     }
+
+    @Inject
+    public void setUserService(UserService userService) { this.userService = userService; }
 
     /**
      * Searches for all comments added to article
@@ -85,8 +90,9 @@ public class CommentController {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response createComment(@PathParam("articleId") Long articleId, CreateCommentRequest request) {
         Optional<Article> article = articleService.findById(articleId);
-        if (article.isPresent()) {
-            Comment comment = CreateCommentRequest.convertToEntity(request, article.get());
+        Optional<User> user = userService.findById(request.getUserId());
+        if (article.isPresent() && user.isPresent()) {
+            Comment comment = CreateCommentRequest.convertToEntity(request, article.get(), user.get());
             commentService.createComment(comment);
             URI getCommentByIdUri = URI.create(
                     UriBuilder.fromResource(CommentController.class).build(articleId).getPath() +

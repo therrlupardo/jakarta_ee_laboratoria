@@ -5,15 +5,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import pl.edu.pg.eti.kask.blog.comment.entity.Comment;
-import pl.edu.pg.eti.kask.blog.user.entity.User;
 import pl.edu.pg.eti.kask.blog.user.model.UserModel;
-import pl.edu.pg.eti.kask.blog.user.service.UserService;
 
-import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 /**
  * @author mateusz.bucahejewicz
@@ -55,25 +49,16 @@ public class CommentsModel {
      * Converts Comment to CommentsModel
      *
      * @param entity      comment to be converted
-     * @param userService needed to load user by it's id stored in Comment
      * @return converted model
-     * @throws IOException thrown if any input/output exception
      */
-    public static CommentsModel convertFromEntity(Comment entity, UserService userService) throws IOException {
-        Optional<User> user = userService.findById(entity.getUserId());
-        if (user.isPresent()) {
-            return CommentsModel.builder()
-                    .id(entity.getId())
-                    .author(UserModel.convertFromEntity(user.get()))
-                    .content(entity.getContent())
-                    .creationTime(entity.getCreationTime())
-                    .numberOfLikes(entity.getNumberOfLikes())
-                    .build();
-        } else {
-            FacesContext.getCurrentInstance().getExternalContext()
-                    .responseSendError(HttpServletResponse.SC_NOT_FOUND, "User doesn't exist");
-            return null;
-        }
+    public static CommentsModel convertFromEntity(Comment entity) {
+        return CommentsModel.builder()
+                .id(entity.getId())
+                .author(UserModel.convertFromEntity(entity.getUser()))
+                .content(entity.getContent())
+                .creationTime(entity.getCreationTime())
+                .numberOfLikes(entity.getNumberOfLikes())
+                .build();
     }
 
     /**

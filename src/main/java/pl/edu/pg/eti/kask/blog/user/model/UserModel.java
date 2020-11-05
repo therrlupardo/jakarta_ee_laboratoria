@@ -52,4 +52,19 @@ public class UserModel {
     public static UserModel convertFromEntity(User entity) {
         return UserModel.builder().id(entity.getId()).username(entity.getUsername()).build();
     }
+
+    /**
+     * Converts UserModel to User
+     *
+     * @param model model to be converted
+     * @return converted entity
+     */
+    public static User convertToEntity(UserModel model) {
+        return User.builder()
+                .id(model.getId())
+                .username(model.getUsername())
+                .password(model.getPassword())
+                .birthdate(model.getBirthdate())
+                .build();
+    }
 }

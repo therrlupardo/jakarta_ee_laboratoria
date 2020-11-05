@@ -74,14 +74,7 @@ public class ArticleView implements Serializable {
      */
     public List<CommentsModel> getComments() {
         return commentService.findAllByArticleId(id).stream()
-                .map(c -> {
-                    try {
-                        return CommentsModel.convertFromEntity(c, userService);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        return null;
-                    }
-                })
+                .map(CommentsModel::convertFromEntity)
                 .sorted(Comparator.comparing(CommentsModel::getCreationTime))
                 .collect(Collectors.toList());
     }

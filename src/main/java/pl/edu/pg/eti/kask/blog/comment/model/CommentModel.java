@@ -59,26 +59,23 @@ public class CommentModel {
      * Converts Comment to CommentModel
      *
      * @param comment        Comment to be converted
-     * @param userService    needed to load user by it's id stored in Comment
      * @param articleService needed to load article by it's id stored in Comment
      * @return converted model
      * @throws IOException thrown if any input/output exception
      */
-    public static CommentModel convertFromEntity(Comment comment, UserService userService, ArticleService articleService) throws IOException {
+    public static CommentModel convertFromEntity(Comment comment, ArticleService articleService) throws IOException {
         Optional<Article> article = articleService.findById(comment.getArticle().getId());
-        Optional<User> author = userService.findById(comment.getUserId());
-        if (article.isPresent() && author.isPresent()) {
+        if (article.isPresent()) {
             return CommentModel.builder()
                     .id(comment.getId())
                     .content(comment.getContent())
                     .article(ArticleModel.convertFromEntity(article.get()))
-                    .author(UserModel.convertFromEntity(author.get()))
+                    .author(UserModel.convertFromEntity(comment.getUser()))
                     .creationTime(comment.getCreationTime())
                     .numberOfLikes(comment.getNumberOfLikes())
                     .build();
         } else {
-            FacesContext.getCurrentInstance().getExternalContext().responseSendError(HttpServletResponse.SC_NOT_FOUND,
-                    (article.isPresent() ? "Author" : "Article") + " doesn't exist");
+            FacesContext.getCurrentInstance().getExternalContext().responseSendError(HttpServletResponse.SC_NOT_FOUND, "Article doesn't exist");
             return null;
         }
     }
@@ -93,7 +90,7 @@ public class CommentModel {
         return Comment.builder()
                 .id(comment.getId())
                 .article(ArticleModel.convertToEntity(comment.getArticle()))
-                .userId(comment.getAuthor().getId())
+                .user(UserModel.convertToEntity(comment.getAuthor()))
                 .content(comment.getContent())
                 .creationTime(comment.getCreationTime())
                 .numberOfLikes(comment.getNumberOfLikes())

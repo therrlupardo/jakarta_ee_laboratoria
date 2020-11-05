@@ -3,6 +3,7 @@ package pl.edu.pg.eti.kask.blog.comment.dto;
 import lombok.*;
 import pl.edu.pg.eti.kask.blog.article.entity.Article;
 import pl.edu.pg.eti.kask.blog.comment.entity.Comment;
+import pl.edu.pg.eti.kask.blog.user.entity.User;
 
 /**
  * @author mateusz.buchajewicz
@@ -36,9 +37,9 @@ public class CreateCommentRequest {
      * @param article article to which comment should be added
      * @return converted entity
      */
-    public static Comment convertToEntity(CreateCommentRequest request, Article article) {
+    public static Comment convertToEntity(CreateCommentRequest request, Article article, User user) {
         return Comment.builder()
-                .userId(request.getUserId())
+                .user(user)
                 .article(article)
                 .content(request.getContent())
                 .build();

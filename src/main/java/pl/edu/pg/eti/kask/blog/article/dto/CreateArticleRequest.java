@@ -6,7 +6,7 @@ import pl.edu.pg.eti.kask.blog.article.entity.Article;
 /**
  * @author mateusz.buchajewicz
  * <p>
- * POST character request, has only fields required to create user
+ * POST character request, has only fields required to create article
  */
 @Data
 @Builder

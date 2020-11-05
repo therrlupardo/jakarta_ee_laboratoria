@@ -32,7 +32,7 @@ public class GetCommentsResponse {
         comments.stream().map(c -> Comment.builder()
                 .id(c.getId())
                 .content(c.getContent())
-                .authorId(c.getUserId())
+                .authorId(c.getUser().getId())
                 .build())
                 .forEach(response::comment);
         return response.build();

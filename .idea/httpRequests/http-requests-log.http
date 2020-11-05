@@ -1,0 +1,335 @@
+GET http://localhost:9080/blog/api/articles/5/comments
+Accept: application/json
+
+<> 2020-11-05T080708.200.json
+
+###
+
+GET http://localhost:9080/blog/api/articles
+Accept: application/json
+
+<> 2020-11-05T080701.200.json
+
+###
+
+POST http://localhost:9080/blog/api/users
+Content-Type: application/json
+
+{
+  "username": "Gandalf",
+  "password": "theWhite",
+  "birthdate": "1900-6-22"
+}
+
+###
+
+POST http://localhost:9080/blog/api/users
+Content-Type: application/json
+
+{
+  "username": "Gandalf",
+  "password": "theWhite",
+  "birthdate": "1900-06-22"
+}
+
+###
+
+POST http://localhost:9080/blog/api/users
+Content-Type: application/json
+
+{
+  "username": "Gandalf",
+  "password": "theWhite",
+  "birthdate": "1900-06-2231"
+}
+
+###
+
+POST http://localhost:9080/blog/api/users
+Content-Type: application/json
+
+{
+  "username": "Gandalf",
+  "password": "theWhite",
+  "birthdate": "1900-06-22"
+}
+
+###
+
+GET http://localhost:9080/blog/api/users/11
+Accept: application/json
+
+###
+
+GET http://localhost:9080/blog/api/users/11
+Accept: application/json
+
+###
+
+GET http://localhost:9080/blog/api/users/11
+Accept: application/json
+
+<> 2020-11-05T075248.200.json
+
+###
+
+POST http://localhost:9080/blog/api/users
+Content-Type: application/json
+
+{
+  "username": "Gandalf",
+  "password": "theWhite"
+}
+
+###
+
+GET http://localhost:9080/blog/api/users/1
+Accept: application/json
+
+<> 2020-11-05T075233.200.json
+
+###
+
+GET http://localhost:9080/blog/api/users
+Accept: application/json
+
+<> 2020-11-05T075219.200.json
+
+###
+
+GET http://localhost:9080/blog/api/articles/5/comments/12
+Accept: application/json
+
+###
+
+GET http://localhost:9080/blog/api/articles/5/comments
+Accept: application/json
+
+###
+
+DELETE http://localhost:9080/blog/api/articles/5
+
+###
+
+GET http://localhost:9080/blog/api/articles/5/comments
+Accept: application/json
+
+<> 2020-11-03T060633.200.json
+
+###
+
+GET http://localhost:9080/blog/api/articles
+Accept: application/json
+
+<> 2020-11-03T060624.200.json
+
+###
+
+GET http://localhost:9080/blog/api/articles/5
+Accept: application/json
+
+<> 2020-10-30T011100.200.json
+
+###
+
+GET http://localhost:9080/blog/api/articles/5
+Accept: application/json
+
+<> 2020-10-30T010719.200.json
+
+###
+
+GET http://localhost:9080/blog/api/articles/5
+Accept: application/json
+
+<> 2020-10-30T010219.500.json
+
+###
+
+GET http://localhost:9080/blog/api/articles/5
+Accept: application/json
+
+<> 2020-10-30T010140.500.json
+
+###
+
+GET http://localhost:9080/blog/api/articles/5
+Accept: application/json
+
+<> 2020-10-30T010130.500.json
+
+###
+
+GET http://localhost:9080/blog/api/articles/5
+Accept: application/json
+
+<> 2020-10-30T125853.200.json
+
+###
+
+GET http://localhost:9080/blog/api/articles/5
+Accept: application/json
+
+<> 2020-10-30T125802.200.json
+
+###
+
+GET http://localhost:9080/blog/api/articles
+Accept: application/json
+
+<> 2020-10-30T125757.200.json
+
+###
+
+GET http://localhost:9080/blog/api/articles/8/comments/12
+Accept: application/json
+
+###
+
+GET http://localhost:9080/blog/api/articles/8/comments/12
+Accept: application/json
+
+###
+
+GET http://localhost:9080/blog/api/articles/5/comments
+Accept: application/json
+
+###
+
+DELETE http://localhost:9080/blog/api/articles/5
+
+###
+
+GET http://localhost:9080/blog/api/articles/5
+Accept: application/json
+
+<> 2020-10-30T011141.200.json
+
+###
+
+GET http://localhost:9080/blog/api/articles/5
+Accept: application/json
+
+<> 2020-10-30T011135.404.html
+
+###
+
+GET http://localhost:9080/blog/api/articles/5
+Accept: application/json
+
+<> 2020-10-30T010828.500.json
+
+###
+
+GET http://localhost:9080/blog/api/articles/5
+Accept: application/json
+
+<> 2020-10-30T010556.500.json
+
+###
+
+GET http://localhost:9080/blog/api/articles/5
+Accept: application/json
+
+###
+
+GET http://localhost:9080/blog/api/articles/8/comments/12
+Accept: application/json
+
+###
+
+GET http://localhost:9080/blog/api/articles/5/comments
+Accept: application/json
+
+<> 2020-10-30T010435.200.json
+
+###
+
+DELETE http://localhost:9080/blog/api/articles/5
+
+###
+
+GET http://localhost:9080/blog/api/articles/5
+Accept: application/json
+
+<> 2020-10-30T010419.500.json
+
+###
+
+GET http://localhost:9080/blog/api/articles
+Accept: application/json
+
+<> 2020-10-30T010416.200.json
+
+###
+
+GET http://localhost:9080/blog/api/articles/5
+Accept: application/json
+
+<> 2020-10-30T125449.500.json
+
+###
+
+DELETE http://localhost:9080/blog/api/articles/5
+
+<> 2020-10-30T124154.500.html
+
+###
+
+GET http://localhost:9080/blog/api/articles/5
+Accept: application/json
+
+<> 2020-10-30T124141.200.json
+
+###
+
+DELETE http://localhost:9080/blog/api/articles/5
+
+<> 2020-10-30T123531.500.html
+
+###
+
+DELETE http://localhost:9080/blog/api/articles/5
+
+<> 2020-10-30T123510.500.html
+
+###
+
+GET http://localhost:9080/blog/api/articles/5
+Accept: application/json
+
+<> 2020-10-30T123435.200.json
+
+###
+
+GET http://localhost:9080/blog/api/articles/5
+Accept: application/json
+
+<> 2020-10-30T123419.200.json
+
+###
+
+DELETE http://localhost:9080/blog/api/articles/5
+
+<> 2020-10-30T123030.500.html
+
+###
+
+DELETE http://localhost:9080/blog/api/articles/5
+
+<> 2020-10-30T122856.500.html
+
+###
+
+DELETE http://localhost:9080/blog/api/articles/5
+
+<> 2020-10-30T122605.500.html
+
+###
+
+DELETE http://localhost:9080/blog/api/articles/5
+
+<> 2020-10-30T122228.500.html
+
+###
+
