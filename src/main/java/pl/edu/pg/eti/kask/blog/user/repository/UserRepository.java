@@ -4,7 +4,7 @@ import pl.edu.pg.eti.kask.blog.common.interfaces.CrudRepository;
 import pl.edu.pg.eti.kask.blog.user.entity.User;
 import pl.edu.pg.eti.kask.blog.utils.Sha256HashingUtility;
 
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.Dependent;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
@@ -15,7 +15,7 @@ import java.util.Optional;
  * @author mateusz.buchajewicz
  * Repository for user entity
  */
-@RequestScoped
+@Dependent
 public class UserRepository implements CrudRepository<User> {
 
     private EntityManager em;

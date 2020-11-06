@@ -5,6 +5,7 @@ import pl.edu.pg.eti.kask.blog.user.entity.User;
 import pl.edu.pg.eti.kask.blog.user.service.UserService;
 import pl.edu.pg.eti.kask.blog.utils.ServletUtils;
 
+import javax.naming.OperationNotSupportedException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -59,7 +60,7 @@ public class AvatarServlet extends HttpServlet {
                 byte[] avatar = avatarService.findAvatarByUser(user.get());
                 response.setContentLength(avatar.length);
                 response.getOutputStream().write(avatar);
-            } catch (FileNotFoundException e) {
+            } catch (FileNotFoundException | OperationNotSupportedException  e) {
                 response.sendError(HttpServletResponse.SC_NOT_FOUND);
             }
         } else {
@@ -106,7 +107,7 @@ public class AvatarServlet extends HttpServlet {
                 try {
                     avatarService.create(user.get(), avatar.getInputStream());
                     response.setStatus(HttpServletResponse.SC_CREATED);
-                } catch (FileAlreadyExistsException e) {
+                } catch (FileAlreadyExistsException | OperationNotSupportedException e) {
                     response.sendError(HttpServletResponse.SC_CONFLICT);
                 }
             } else {
@@ -155,7 +156,7 @@ public class AvatarServlet extends HttpServlet {
                 }
                 try {
                     avatarService.updateAvatar(user.get(), avatar.getInputStream());
-                } catch (FileNotFoundException e) {
+                } catch (FileNotFoundException | OperationNotSupportedException e) {
                     response.sendError(HttpServletResponse.SC_NOT_FOUND);
                 }
             } else {
@@ -197,7 +198,7 @@ public class AvatarServlet extends HttpServlet {
         if (user.isPresent()) {
             try {
                 avatarService.delete(user.get());
-            } catch (FileNotFoundException e) {
+            } catch (OperationNotSupportedException e) {
                 response.sendError(HttpServletResponse.SC_NOT_FOUND);
             }
         } else {

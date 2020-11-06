@@ -4,9 +4,9 @@ import pl.edu.pg.eti.kask.blog.article.entity.Article;
 import pl.edu.pg.eti.kask.blog.article.model.ArticlesModel;
 import pl.edu.pg.eti.kask.blog.article.service.ArticleService;
 
+import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
-import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.Comparator;
@@ -21,10 +21,10 @@ import java.util.stream.Collectors;
 @RequestScoped
 public class ArticlesList implements Serializable {
 
-    private final ArticleService articleService;
+    private ArticleService articleService;
 
-    @Inject
-    public ArticlesList(ArticleService articleService) {
+    @EJB
+    public void setArticleService(ArticleService articleService) {
         this.articleService = articleService;
     }
 

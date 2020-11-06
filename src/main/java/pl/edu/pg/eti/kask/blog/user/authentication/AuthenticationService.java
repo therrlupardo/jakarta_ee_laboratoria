@@ -6,7 +6,9 @@ import pl.edu.pg.eti.kask.blog.user.entity.User;
 import pl.edu.pg.eti.kask.blog.user.service.UserService;
 import pl.edu.pg.eti.kask.blog.utils.Sha256HashingUtility;
 
-import javax.enterprise.context.ApplicationScoped;
+import javax.ejb.EJB;
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 import java.io.Serializable;
 import java.util.Optional;
@@ -15,11 +17,15 @@ import java.util.Optional;
  * @author mateusz.buchajewicz
  * Service which menages user's authentication
  */
-@ApplicationScoped
+@Stateless
+@LocalBean
 @NoArgsConstructor
 public class AuthenticationService implements Serializable {
 
     private UserService userService;
+
+    @EJB
+    public void setUserService(UserService userService) { this.userService = userService; }
 
     /**
      * Context of user, stores information about logged in use
@@ -27,8 +33,7 @@ public class AuthenticationService implements Serializable {
     private UserContext userContext;
 
     @Inject
-    public AuthenticationService(UserService userService, UserContext userContext) {
-        this.userService = userService;
+    public AuthenticationService(UserContext userContext) {
         this.userContext = userContext;
     }
 

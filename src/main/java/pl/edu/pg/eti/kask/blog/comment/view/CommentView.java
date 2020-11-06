@@ -7,9 +7,9 @@ import pl.edu.pg.eti.kask.blog.comment.entity.Comment;
 import pl.edu.pg.eti.kask.blog.comment.model.CommentModel;
 import pl.edu.pg.eti.kask.blog.comment.service.CommentService;
 
+import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -23,8 +23,15 @@ import java.util.Optional;
 @Named
 @SessionScoped
 public class CommentView implements Serializable {
-    private final CommentService commentService;
-    private final ArticleService articleService;
+    private CommentService commentService;
+    private ArticleService articleService;
+
+    @EJB
+    public void setArticleService(ArticleService articleService) { this.articleService = articleService; }
+
+    @EJB
+    public void setCommentService(CommentService commentService) { this.commentService = commentService; }
+
     /**
      * Unique identifier of comment, passed as path param {id}
      */
@@ -37,12 +44,6 @@ public class CommentView implements Serializable {
      */
     @Getter
     private CommentModel comment;
-
-    @Inject
-    public CommentView(CommentService commentService, ArticleService articleService) {
-        this.commentService = commentService;
-        this.articleService = articleService;
-    }
 
     /**
      * Initializes data

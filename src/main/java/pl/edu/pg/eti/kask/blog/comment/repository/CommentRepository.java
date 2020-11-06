@@ -3,7 +3,7 @@ package pl.edu.pg.eti.kask.blog.comment.repository;
 import pl.edu.pg.eti.kask.blog.comment.entity.Comment;
 import pl.edu.pg.eti.kask.blog.common.interfaces.CrudRepository;
 
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.Dependent;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
@@ -15,7 +15,7 @@ import java.util.Optional;
  * @author mateusz.buchajewicz
  * Repository for {@link Comment} class
  */
-@RequestScoped
+@Dependent
 public class CommentRepository implements Serializable, CrudRepository<Comment> {
 
     private EntityManager em;

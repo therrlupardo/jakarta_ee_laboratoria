@@ -7,11 +7,10 @@ import pl.edu.pg.eti.kask.blog.article.model.ArticleModel;
 import pl.edu.pg.eti.kask.blog.article.service.ArticleService;
 import pl.edu.pg.eti.kask.blog.comment.model.CommentsModel;
 import pl.edu.pg.eti.kask.blog.comment.service.CommentService;
-import pl.edu.pg.eti.kask.blog.user.service.UserService;
 
+import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -29,9 +28,15 @@ import java.util.stream.Collectors;
 @SessionScoped
 public class ArticleView implements Serializable {
 
-    private final ArticleService articleService;
-    private final CommentService commentService;
-    private final UserService userService;
+    private ArticleService articleService;
+    private CommentService commentService;
+
+    @EJB
+    public void setArticleService(ArticleService articleService) { this.articleService = articleService; }
+
+    @EJB
+    public void setCommentService(CommentService commentService) { this.commentService = commentService; }
+
     /**
      * Id of article, loaded from path param
      */
@@ -44,13 +49,6 @@ public class ArticleView implements Serializable {
      */
     @Getter
     private ArticleModel article;
-
-    @Inject
-    public ArticleView(ArticleService articleService, CommentService commentService, UserService userService) {
-        this.articleService = articleService;
-        this.commentService = commentService;
-        this.userService = userService;
-    }
 
     /**
      * Initializes article

@@ -1,3 +1,127 @@
+GET http://localhost:9080/blog/api/users
+Accept: application/json
+
+<> 2020-11-05T102659.500.html
+
+###
+
+GET http://localhost:9080/blog/api/users
+Accept: application/json
+
+<> 2020-11-05T102622.500.html
+
+###
+
+GET http://localhost:9080/blog/api/users
+Accept: application/json
+
+<> 2020-11-05T102443.500.html
+
+###
+
+GET http://localhost:9080/blog/api/users
+Accept: application/json
+
+<> 2020-11-05T102420.500.html
+
+###
+
+GET http://localhost:9080/blog/api/users
+Accept: application/json
+
+<> 2020-11-05T102335.500.html
+
+###
+
+GET http://localhost:9080/blog/api/articles/1/comments
+
+<> 2020-11-05T100828.500.html
+
+###
+
+GET http://localhost/articles/1/comments
+
+###
+
+GET http://localhost/articles/{{articleId}}/comments
+
+###
+
+GET http://localhost:9080/blog/api/users
+Accept: application/json
+
+<> 2020-11-05T100215.500.html
+
+###
+
+GET http://localhost:9080/blog/api/users
+Accept: application/json
+
+<> 2020-11-05T095954.500.html
+
+###
+
+GET http://localhost:9080/blog/api/users
+Accept: application/json
+
+<> 2020-11-05T092406.500.html
+
+###
+
+GET http://localhost:9080/blog/api/users
+Accept: application/json
+
+<> 2020-11-05T092231.500.html
+
+###
+
+GET http://localhost:9080/blog/api/users
+Accept: application/json
+
+###
+
+GET http://localhost:9080/blog/api/users
+Accept: application/json
+
+<> 2020-11-05T091816.500.html
+
+###
+
+GET http://localhost:9080/blog/api/users
+Accept: application/json
+
+<> 2020-11-05T090434.500.html
+
+###
+
+GET http://localhost:9080/blog/api/users
+Accept: application/json
+
+<> 2020-11-05T090237.404.html
+
+###
+
+GET http://localhost:9080/blog/api/users
+Accept: application/json
+
+<> 2020-11-05T090144.404.html
+
+###
+
+GET http://localhost:9080/blog/api/articles
+Accept: application/json
+
+<> 2020-11-05T090125.404.html
+
+###
+
+GET http://localhost:9080/blog/api/articles
+Accept: application/json
+
+<> 2020-11-05T085350.500.html
+
+###
+
 GET http://localhost:9080/blog/api/articles/5/comments
 Accept: application/json
 
@@ -211,125 +335,6 @@ GET http://localhost:9080/blog/api/articles/5
 Accept: application/json
 
 <> 2020-10-30T011135.404.html
-
-###
-
-GET http://localhost:9080/blog/api/articles/5
-Accept: application/json
-
-<> 2020-10-30T010828.500.json
-
-###
-
-GET http://localhost:9080/blog/api/articles/5
-Accept: application/json
-
-<> 2020-10-30T010556.500.json
-
-###
-
-GET http://localhost:9080/blog/api/articles/5
-Accept: application/json
-
-###
-
-GET http://localhost:9080/blog/api/articles/8/comments/12
-Accept: application/json
-
-###
-
-GET http://localhost:9080/blog/api/articles/5/comments
-Accept: application/json
-
-<> 2020-10-30T010435.200.json
-
-###
-
-DELETE http://localhost:9080/blog/api/articles/5
-
-###
-
-GET http://localhost:9080/blog/api/articles/5
-Accept: application/json
-
-<> 2020-10-30T010419.500.json
-
-###
-
-GET http://localhost:9080/blog/api/articles
-Accept: application/json
-
-<> 2020-10-30T010416.200.json
-
-###
-
-GET http://localhost:9080/blog/api/articles/5
-Accept: application/json
-
-<> 2020-10-30T125449.500.json
-
-###
-
-DELETE http://localhost:9080/blog/api/articles/5
-
-<> 2020-10-30T124154.500.html
-
-###
-
-GET http://localhost:9080/blog/api/articles/5
-Accept: application/json
-
-<> 2020-10-30T124141.200.json
-
-###
-
-DELETE http://localhost:9080/blog/api/articles/5
-
-<> 2020-10-30T123531.500.html
-
-###
-
-DELETE http://localhost:9080/blog/api/articles/5
-
-<> 2020-10-30T123510.500.html
-
-###
-
-GET http://localhost:9080/blog/api/articles/5
-Accept: application/json
-
-<> 2020-10-30T123435.200.json
-
-###
-
-GET http://localhost:9080/blog/api/articles/5
-Accept: application/json
-
-<> 2020-10-30T123419.200.json
-
-###
-
-DELETE http://localhost:9080/blog/api/articles/5
-
-<> 2020-10-30T123030.500.html
-
-###
-
-DELETE http://localhost:9080/blog/api/articles/5
-
-<> 2020-10-30T122856.500.html
-
-###
-
-DELETE http://localhost:9080/blog/api/articles/5
-
-<> 2020-10-30T122605.500.html
-
-###
-
-DELETE http://localhost:9080/blog/api/articles/5
-
-<> 2020-10-30T122228.500.html
 
 ###
 

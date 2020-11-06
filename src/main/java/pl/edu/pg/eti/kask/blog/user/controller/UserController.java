@@ -5,7 +5,7 @@ import pl.edu.pg.eti.kask.blog.user.dto.CreateUserRequest;
 import pl.edu.pg.eti.kask.blog.user.entity.User;
 import pl.edu.pg.eti.kask.blog.user.service.UserService;
 
-import javax.inject.Inject;
+import javax.ejb.EJB;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -19,13 +19,18 @@ import java.util.Optional;
  * REST Controller for {@link User}
  */
 @Path("users")
-@NoArgsConstructor
 public class UserController {
 
     private UserService userService;
 
-    @Inject
-    public void setUserService(UserService userService) { this.userService = userService; }
+    public UserController() {
+        System.out.println("INIT USER CONTROLLER");
+    }
+
+    @EJB
+    public void setUserService(UserService userService) {
+        System.out.println("SET USER SERVICE");
+        this.userService = userService; }
 
     /**
      * Searches for all users
@@ -35,6 +40,7 @@ public class UserController {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getUsers() {
+        System.out.println(userService == null);
         return Response.ok(userService.findAll()).build();
     }
 

@@ -8,7 +8,7 @@ import pl.edu.pg.eti.kask.blog.article.dto.UpdateArticleRequest;
 import pl.edu.pg.eti.kask.blog.article.entity.Article;
 import pl.edu.pg.eti.kask.blog.article.service.ArticleService;
 
-import javax.inject.Inject;
+import javax.ejb.EJB;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -26,7 +26,7 @@ import java.util.Optional;
 public class ArticleController {
     private ArticleService articleService;
 
-    @Inject
+    @EJB
     public void setArticleService(ArticleService articleService) {
         this.articleService = articleService;
     }

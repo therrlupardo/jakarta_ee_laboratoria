@@ -1,5 +1,6 @@
 package pl.edu.pg.eti.kask.blog.configuration;
 
+import lombok.NoArgsConstructor;
 import pl.edu.pg.eti.kask.blog.article.entity.Article;
 import pl.edu.pg.eti.kask.blog.article.service.ArticleService;
 import pl.edu.pg.eti.kask.blog.comment.entity.Comment;
@@ -8,11 +9,12 @@ import pl.edu.pg.eti.kask.blog.user.entity.User;
 import pl.edu.pg.eti.kask.blog.user.service.UserService;
 import pl.edu.pg.eti.kask.blog.utils.Sha256HashingUtility;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.context.Initialized;
-import javax.enterprise.context.control.RequestContextController;
-import javax.enterprise.event.Observes;
-import javax.inject.Inject;
+import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
+import javax.ejb.Startup;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
+import javax.inject.Singleton;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
@@ -25,33 +27,24 @@ import java.time.LocalDateTime;
  * @author mateusz.buchajewicz
  * Initializes data
  */
-@ApplicationScoped
+@Singleton
+@Startup
+@NoArgsConstructor
+@TransactionAttribute(value = TransactionAttributeType.NOT_SUPPORTED)
 public class InitializeData {
 
-    private final UserService userService;
-    private final ArticleService articleService;
-    private final CommentService commentService;
-    private final RequestContextController requestContextController;
+    private UserService userService;
+    private ArticleService articleService;
+    private CommentService commentService;
 
-    @Inject
-    public InitializeData(UserService userService, ArticleService articleService, CommentService commentService, RequestContextController requestContextController) {
-        this.userService = userService;
-        this.articleService = articleService;
-        this.commentService = commentService;
-        this.requestContextController = requestContextController;
-    }
+    @EJB
+    public void setArticleService(ArticleService articleService) { this.articleService = articleService;}
 
-    /**
-     * Runs after ApplicationScoped.class initializes
-     *
-     * @param init observed object
-     *
-     * @throws URISyntaxException thrown if resource URI is not valid
-     * @throws IOException thrown if any input/output exception
-     */
-    public void contextInitialized(@Observes @Initialized(ApplicationScoped.class) Object init) throws URISyntaxException, IOException {
-        init();
-    }
+    @EJB
+    public void setUserService(UserService userService) { this.userService = userService; }
+
+    @EJB
+    public void setCommentService(CommentService commentService) { this.commentService = commentService; }
 
     /**
      * Creates initial data
@@ -59,12 +52,14 @@ public class InitializeData {
      * @throws URISyntaxException thrown if resource URI is not valid
      * @throws IOException thrown if any input/output exception
      */
+    @PostConstruct
     private synchronized void init() throws URISyntaxException, IOException {
-        requestContextController.activate();
+        System.out.println("PRE_INITIAZIED_DATA");
         initUsers();
         initArticles();
         initComments();
-        requestContextController.deactivate();
+        System.out.println("INITIAZIED_DATA");
+
     }
 
     private void initComments() {

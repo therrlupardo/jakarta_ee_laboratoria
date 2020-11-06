@@ -4,7 +4,7 @@ import lombok.extern.java.Log;
 import pl.edu.pg.eti.kask.blog.article.entity.Article;
 import pl.edu.pg.eti.kask.blog.common.interfaces.CrudRepository;
 
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.Dependent;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
@@ -15,7 +15,7 @@ import java.util.Optional;
  * Repository for Article entity
  */
 @Log
-@RequestScoped
+@Dependent
 public class ArticleRepository implements CrudRepository<Article> {
     private EntityManager em;
 
