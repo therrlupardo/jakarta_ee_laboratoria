@@ -12,7 +12,7 @@ import pl.edu.pg.eti.kask.blog.comment.service.CommentService;
 import pl.edu.pg.eti.kask.blog.user.entity.User;
 import pl.edu.pg.eti.kask.blog.user.service.UserService;
 
-import javax.ejb.EJB;
+import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -32,17 +32,17 @@ public class CommentController {
     private ArticleService articleService;
     private UserService userService;
 
-    @EJB
+    @Inject
     public void setCommentService(CommentService commentService) {
         this.commentService = commentService;
     }
 
-    @EJB
+    @Inject
     public void setArticleService(ArticleService articleService) {
         this.articleService = articleService;
     }
 
-    @EJB
+    @Inject
     public void setUserService(UserService userService) { this.userService = userService; }
 
     /**

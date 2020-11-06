@@ -5,7 +5,7 @@ import pl.edu.pg.eti.kask.blog.user.dto.CreateUserRequest;
 import pl.edu.pg.eti.kask.blog.user.entity.User;
 import pl.edu.pg.eti.kask.blog.user.service.UserService;
 
-import javax.ejb.EJB;
+import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -24,7 +24,7 @@ public class UserController {
 
     private UserService userService;
 
-    @EJB
+    @Inject
     public void setUserService(UserService userService) {
         this.userService = userService; }
 

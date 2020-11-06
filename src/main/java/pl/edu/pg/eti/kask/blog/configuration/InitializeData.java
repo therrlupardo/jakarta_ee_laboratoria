@@ -10,11 +10,11 @@ import pl.edu.pg.eti.kask.blog.user.service.UserService;
 import pl.edu.pg.eti.kask.blog.utils.Sha256HashingUtility;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
+import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
-import javax.inject.Singleton;
+import javax.inject.Inject;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
@@ -37,13 +37,13 @@ public class InitializeData {
     private ArticleService articleService;
     private CommentService commentService;
 
-    @EJB
+    @Inject
     public void setArticleService(ArticleService articleService) { this.articleService = articleService;}
 
-    @EJB
+    @Inject
     public void setUserService(UserService userService) { this.userService = userService; }
 
-    @EJB
+    @Inject
     public void setCommentService(CommentService commentService) { this.commentService = commentService; }
 
     /**
@@ -57,7 +57,6 @@ public class InitializeData {
         initUsers();
         initArticles();
         initComments();
-
     }
 
     private void initComments() {

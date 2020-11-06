@@ -4,9 +4,9 @@ import lombok.Getter;
 import lombok.Setter;
 import pl.edu.pg.eti.kask.blog.user.authentication.AuthenticationService;
 
-import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -22,7 +22,7 @@ public class UserLogin implements Serializable {
 
     private AuthenticationService authenticationService;
 
-    @EJB
+    @Inject
     public void setAuthenticationService(AuthenticationService authenticationService) { this.authenticationService = authenticationService; }
     /**
      * Value of form's login field

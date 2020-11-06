@@ -67,6 +67,7 @@ public class CommentRepository implements Serializable, CrudRepository<Comment> 
     @Override
     public void create(Comment comment) {
         em.persist(comment);
+        System.out.println("CREATE COMMENT" + comment.getContent());
     }
 
     /**

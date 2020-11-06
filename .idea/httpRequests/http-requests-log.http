@@ -1,6 +1,34 @@
 GET http://localhost:9080/blog/api/users
 Accept: application/json
 
+<> 2020-11-06T120723.200.json
+
+###
+
+GET http://localhost:9080/blog/api/users
+Accept: application/json
+
+<> 2020-11-06T120305.200.json
+
+###
+
+GET http://localhost:9080/blog/api/users
+Accept: application/json
+
+<> 2020-11-06T120031.500.html
+
+###
+
+GET http://localhost:9080/blog/api/users
+Accept: application/json
+
+<> 2020-11-06T111602.500.html
+
+###
+
+GET http://localhost:9080/blog/api/users
+Accept: application/json
+
 <> 2020-11-05T102659.500.html
 
 ###
@@ -312,29 +340,6 @@ Accept: application/json
 
 GET http://localhost:9080/blog/api/articles/8/comments/12
 Accept: application/json
-
-###
-
-GET http://localhost:9080/blog/api/articles/5/comments
-Accept: application/json
-
-###
-
-DELETE http://localhost:9080/blog/api/articles/5
-
-###
-
-GET http://localhost:9080/blog/api/articles/5
-Accept: application/json
-
-<> 2020-10-30T011141.200.json
-
-###
-
-GET http://localhost:9080/blog/api/articles/5
-Accept: application/json
-
-<> 2020-10-30T011135.404.html
 
 ###
 

@@ -9,9 +9,9 @@ import pl.edu.pg.eti.kask.blog.article.service.ArticleService;
 import pl.edu.pg.eti.kask.blog.comment.model.CommentsModel;
 import pl.edu.pg.eti.kask.blog.comment.service.CommentService;
 
-import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -33,10 +33,10 @@ public class ArticleView implements Serializable {
     private ArticleService articleService;
     private CommentService commentService;
 
-    @EJB
+    @Inject
     public void setArticleService(ArticleService articleService) { this.articleService = articleService; }
 
-    @EJB
+    @Inject
     public void setCommentService(CommentService commentService) { this.commentService = commentService; }
 
     /**

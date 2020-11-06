@@ -7,9 +7,9 @@ import pl.edu.pg.eti.kask.blog.comment.entity.Comment;
 import pl.edu.pg.eti.kask.blog.comment.model.CommentModel;
 import pl.edu.pg.eti.kask.blog.comment.service.CommentService;
 
-import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -28,10 +28,10 @@ public class CommentEdit implements Serializable {
     private CommentService commentService;
     private ArticleService articleService;
 
-    @EJB
+    @Inject
     public void setArticleService(ArticleService articleService) { this.articleService = articleService; }
 
-    @EJB
+    @Inject
     public void setCommentService(CommentService commentService) { this.commentService = commentService; }
 
     /**

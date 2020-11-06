@@ -4,12 +4,12 @@ import pl.edu.pg.eti.kask.blog.user.model.UserModel;
 import pl.edu.pg.eti.kask.blog.user.service.UserService;
 
 import javax.annotation.ManagedBean;
-import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.inject.Inject;
 
 /**
  * @author mateusz.buchajewicz
@@ -22,7 +22,7 @@ public class UserConverter implements Converter<UserModel> {
 
     private UserService userService;
 
-    @EJB
+    @Inject
     public void setUserService(UserService userService) { this.userService = userService; }
 
     @Override

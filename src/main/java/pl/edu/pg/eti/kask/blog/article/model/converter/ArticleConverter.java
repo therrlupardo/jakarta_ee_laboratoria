@@ -4,12 +4,12 @@ import pl.edu.pg.eti.kask.blog.article.model.ArticleModel;
 import pl.edu.pg.eti.kask.blog.article.service.ArticleService;
 
 import javax.annotation.ManagedBean;
-import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.inject.Inject;
 
 /**
  * @author mateusz.buchajewicz
@@ -22,7 +22,7 @@ public class ArticleConverter implements Converter<ArticleModel> {
 
     private ArticleService articleService;
 
-    @EJB
+    @Inject
     public void setArticleService(ArticleService articleService) { this.articleService = articleService; }
 
     @Override

@@ -6,7 +6,6 @@ import pl.edu.pg.eti.kask.blog.user.entity.User;
 import pl.edu.pg.eti.kask.blog.user.service.UserService;
 import pl.edu.pg.eti.kask.blog.utils.Sha256HashingUtility;
 
-import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -24,7 +23,7 @@ public class AuthenticationService implements Serializable {
 
     private UserService userService;
 
-    @EJB
+    @Inject
     public void setUserService(UserService userService) { this.userService = userService; }
 
     /**

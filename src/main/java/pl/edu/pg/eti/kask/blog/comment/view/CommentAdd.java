@@ -10,7 +10,6 @@ import pl.edu.pg.eti.kask.blog.user.model.UserModel;
 import pl.edu.pg.eti.kask.blog.user.service.UserService;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
 import javax.inject.Inject;
@@ -33,13 +32,13 @@ public class CommentAdd implements Serializable {
     private UserService userService;
     private ArticleService articleService;
 
-    @EJB
+    @Inject
     public void setArticleService(ArticleService articleService) { this.articleService = articleService; }
 
-    @EJB
+    @Inject
     public void setUserService(UserService userService) { this.userService = userService; }
 
-    @EJB
+    @Inject
     public void setCommentService(CommentService commentService) { this.commentService = commentService; }
     /**
      * List of available users to select as author of comment
