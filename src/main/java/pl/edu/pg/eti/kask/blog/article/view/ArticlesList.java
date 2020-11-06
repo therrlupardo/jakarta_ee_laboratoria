@@ -1,5 +1,6 @@
 package pl.edu.pg.eti.kask.blog.article.view;
 
+import lombok.NoArgsConstructor;
 import pl.edu.pg.eti.kask.blog.article.entity.Article;
 import pl.edu.pg.eti.kask.blog.article.model.ArticlesModel;
 import pl.edu.pg.eti.kask.blog.article.service.ArticleService;
@@ -19,6 +20,7 @@ import java.util.stream.Collectors;
  */
 @Named
 @RequestScoped
+@NoArgsConstructor
 public class ArticlesList implements Serializable {
 
     private ArticleService articleService;

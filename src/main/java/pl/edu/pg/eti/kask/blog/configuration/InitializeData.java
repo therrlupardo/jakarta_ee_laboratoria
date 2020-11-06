@@ -54,11 +54,9 @@ public class InitializeData {
      */
     @PostConstruct
     private synchronized void init() throws URISyntaxException, IOException {
-        System.out.println("PRE_INITIAZIED_DATA");
         initUsers();
         initArticles();
         initComments();
-        System.out.println("INITIAZIED_DATA");
 
     }
 

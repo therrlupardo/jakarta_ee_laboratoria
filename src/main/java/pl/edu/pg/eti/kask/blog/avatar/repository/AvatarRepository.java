@@ -1,5 +1,6 @@
 package pl.edu.pg.eti.kask.blog.avatar.repository;
 
+import lombok.NoArgsConstructor;
 import pl.edu.pg.eti.kask.blog.user.entity.User;
 
 import javax.enterprise.context.Dependent;
@@ -12,6 +13,7 @@ import java.io.InputStream;
  * Repository for user avatars
  */
 @Dependent
+@NoArgsConstructor
 public class AvatarRepository {
 
     /**
