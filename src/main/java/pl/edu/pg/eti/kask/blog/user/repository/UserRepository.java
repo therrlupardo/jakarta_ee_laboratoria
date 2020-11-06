@@ -57,12 +57,11 @@ public class UserRepository implements CrudRepository<User> {
     /**
      * Searches for user with given id
      *
-     * @param id unique identifier of user
+     * @param name username of user
      * @return user with specified id as optional (can be empty)
      */
-    @Override
-    public Optional<User> findById(Long id) {
-        return Optional.ofNullable(em.find(User.class, id));
+    public User findByName(String name) {
+        return em.find(User.class, name);
     }
 
     /**
@@ -85,10 +84,27 @@ public class UserRepository implements CrudRepository<User> {
     public Optional<User> find(String login, String password) {
         try {
             return Optional.of(em.createQuery("SELECT u FROM User u WHERE u.username = :login AND u.password = :password", User.class)
-            .setParameter("login", login)
-            .setParameter("password", password)
+                    .setParameter("login", login)
+                    .setParameter("password", password)
                     .getSingleResult()
             );
+        } catch (NoResultException e) {
+            return Optional.empty();
+        }
+    }
+
+    /**
+     * Searches for user with given username
+     *
+     * @param id identifier os user
+     * @return matching user
+     */
+    @Override
+    public Optional<User> findById(Long id) {
+        try {
+            return Optional.ofNullable(em.createQuery("SELECT u FROM User u WHERE u.id = :id", User.class)
+                    .setParameter("id", id)
+                    .getSingleResult());
         } catch (NoResultException e) {
             return Optional.empty();
         }

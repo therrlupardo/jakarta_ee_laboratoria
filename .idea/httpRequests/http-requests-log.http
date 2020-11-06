@@ -1,345 +1,492 @@
-GET http://localhost:9080/blog/api/users
+# @no-cookie-jar
+GET http://localhost:9080/blog/api/articles/7/comments
 Accept: application/json
+Authorization: Basic ZnJvZG86YWRtaW4=
 
-<> 2020-11-06T120723.200.json
+<> 2020-11-06T080726.200.json
 
 ###
 
-GET http://localhost:9080/blog/api/users
+# @no-cookie-jar
+GET http://localhost:9080/blog/api/articles/7/comments
 Accept: application/json
+Authorization: Basic c2FtOnBvdGF0b2Vz
 
-<> 2020-11-06T120305.200.json
+<> 2020-11-06T080721.200.json
 
 ###
 
-GET http://localhost:9080/blog/api/users
+# @no-cookie-jar
+GET http://localhost:9080/blog/api/articles/6/comments/12
 Accept: application/json
-
-<> 2020-11-06T120031.500.html
+Authorization: Basic c2FtOnBvdGF0b2Vz
 
 ###
 
-GET http://localhost:9080/blog/api/users
+# @no-cookie-jar
+GET http://localhost:9080/blog/api/articles/7/comments
 Accept: application/json
+Authorization: Basic ZnJvZG86YWRtaW4=
 
-<> 2020-11-06T111602.500.html
-
-###
-
-GET http://localhost:9080/blog/api/users
-Accept: application/json
-
-<> 2020-11-05T102659.500.html
+<> 2020-11-06T080658.200.json
 
 ###
 
-GET http://localhost:9080/blog/api/users
-Accept: application/json
-
-<> 2020-11-05T102622.500.html
-
-###
-
-GET http://localhost:9080/blog/api/users
-Accept: application/json
-
-<> 2020-11-05T102443.500.html
-
-###
-
-GET http://localhost:9080/blog/api/users
-Accept: application/json
-
-<> 2020-11-05T102420.500.html
-
-###
-
-GET http://localhost:9080/blog/api/users
-Accept: application/json
-
-<> 2020-11-05T102335.500.html
-
-###
-
-GET http://localhost:9080/blog/api/articles/1/comments
-
-<> 2020-11-05T100828.500.html
-
-###
-
-GET http://localhost/articles/1/comments
-
-###
-
-GET http://localhost/articles/{{articleId}}/comments
-
-###
-
-GET http://localhost:9080/blog/api/users
-Accept: application/json
-
-<> 2020-11-05T100215.500.html
-
-###
-
-GET http://localhost:9080/blog/api/users
-Accept: application/json
-
-<> 2020-11-05T095954.500.html
-
-###
-
-GET http://localhost:9080/blog/api/users
-Accept: application/json
-
-<> 2020-11-05T092406.500.html
-
-###
-
-GET http://localhost:9080/blog/api/users
-Accept: application/json
-
-<> 2020-11-05T092231.500.html
-
-###
-
-GET http://localhost:9080/blog/api/users
-Accept: application/json
-
-###
-
-GET http://localhost:9080/blog/api/users
-Accept: application/json
-
-<> 2020-11-05T091816.500.html
-
-###
-
-GET http://localhost:9080/blog/api/users
-Accept: application/json
-
-<> 2020-11-05T090434.500.html
-
-###
-
-GET http://localhost:9080/blog/api/users
-Accept: application/json
-
-<> 2020-11-05T090237.404.html
-
-###
-
-GET http://localhost:9080/blog/api/users
-Accept: application/json
-
-<> 2020-11-05T090144.404.html
-
-###
-
-GET http://localhost:9080/blog/api/articles
-Accept: application/json
-
-<> 2020-11-05T090125.404.html
-
-###
-
-GET http://localhost:9080/blog/api/articles
-Accept: application/json
-
-<> 2020-11-05T085350.500.html
-
-###
-
-GET http://localhost:9080/blog/api/articles/5/comments
-Accept: application/json
-
-<> 2020-11-05T080708.200.json
-
-###
-
-GET http://localhost:9080/blog/api/articles
-Accept: application/json
-
-<> 2020-11-05T080701.200.json
-
-###
-
-POST http://localhost:9080/blog/api/users
+# @no-cookie-jar
+POST http://localhost:9080/blog/api/articles/7/comments
 Content-Type: application/json
+Authorization: Basic c2FtOnBvdGF0b2Vz
 
 {
-  "username": "Gandalf",
-  "password": "theWhite",
-  "birthdate": "1900-6-22"
+  "content": "THIS IS COMMENT2"
 }
 
 ###
 
-POST http://localhost:9080/blog/api/users
+# @no-cookie-jar
+GET http://localhost:9080/blog/api/articles/7/comments
+Accept: application/json
+Authorization: Basic ZnJvZG86YWRtaW4=
+
+<> 2020-11-06T080645.200.json
+
+###
+
+# @no-cookie-jar
+POST http://localhost:9080/blog/api/articles/7/comments
 Content-Type: application/json
+Authorization: Basic ZnJvZG86YWRtaW4=
 
 {
-  "username": "Gandalf",
-  "password": "theWhite",
-  "birthdate": "1900-06-22"
+  "content": "THIS IS COMMENT"
 }
 
 ###
 
-POST http://localhost:9080/blog/api/users
+# @no-cookie-jar
+GET http://localhost:9080/blog/api/articles
+Accept: application/json
+Authorization: Basic c2FtOnBvdGF0b2Vz
+
+<> 2020-11-06T080619.200.json
+
+###
+
+# @no-cookie-jar
+DELETE http://localhost:9080/blog/api/articles/6
+Authorization: Basic ZnJvZG86YWRtaW4=
+
+###
+
+# @no-cookie-jar
+GET http://localhost:9080/blog/api/articles/6/comments
+Accept: application/json
+Authorization: Basic c2FtOnBvdGF0b2Vz
+
+<> 2020-11-06T080418.200.json
+
+###
+
+# @no-cookie-jar
+GET http://localhost:9080/blog/api/articles/6/comments
+Accept: application/json
+Authorization: Basic ZnJvZG86YWRtaW4=
+
+<> 2020-11-06T080408.200.json
+
+###
+
+# @no-cookie-jar
+DELETE http://localhost:9080/blog/api/articles/6
+Authorization: Basic ZnJvZG86YWRtaW4=
+
+<> 2020-11-06T063444.500.html
+
+###
+
+# @no-cookie-jar
+DELETE http://localhost:9080/blog/api/articles/6
+Authorization: Basic ZnJvZG86YWRtaW4=
+
+<> 2020-11-06T063431.500.html
+
+###
+
+# @no-cookie-jar
+DELETE http://localhost:9080/blog/api/articles/6
+Authorization: Basic ZnJvZG86YWRtaW4=
+
+<> 2020-11-06T063229.500.html
+
+###
+
+# @no-cookie-jar
+GET http://localhost:9080/blog/api/articles/6/comments
+Accept: application/json
+Authorization: Basic ZnJvZG86YWRtaW4=
+
+<> 2020-11-06T063159.200.json
+
+###
+
+# @no-cookie-jar
+POST http://localhost:9080/blog/api/articles/6/comments
 Content-Type: application/json
+Authorization: Basic ZnJvZG86YWRtaW4=
 
 {
-  "username": "Gandalf",
-  "password": "theWhite",
-  "birthdate": "1900-06-2231"
+  "content": "THIS IS COMMENT"
 }
 
 ###
 
-POST http://localhost:9080/blog/api/users
+# @no-cookie-jar
+GET http://localhost:9080/blog/api/articles/6/comments/12
+Accept: application/json
+Authorization: Basic ZnJvZG86YWRtaW4=
+
+<> 2020-11-06T063128.200.json
+
+###
+
+# @no-cookie-jar
+GET http://localhost:9080/blog/api/articles/6/comments
+Accept: application/json
+Authorization: Basic ZnJvZG86YWRtaW4=
+
+<> 2020-11-06T063121.200.json
+
+###
+
+# @no-cookie-jar
+POST http://localhost:9080/blog/api/articles/6/comments
 Content-Type: application/json
+Authorization: Basic c2FtOnBvdGF0b2Vz
 
 {
-  "username": "Gandalf",
-  "password": "theWhite",
-  "birthdate": "1900-06-22"
+  "content": "THIS IS COMMENT"
 }
 
 ###
 
-GET http://localhost:9080/blog/api/users/11
-Accept: application/json
-
-###
-
-GET http://localhost:9080/blog/api/users/11
-Accept: application/json
-
-###
-
-GET http://localhost:9080/blog/api/users/11
-Accept: application/json
-
-<> 2020-11-05T075248.200.json
-
-###
-
-POST http://localhost:9080/blog/api/users
+# @no-cookie-jar
+POST http://localhost:9080/blog/api/articles/6/comments
 Content-Type: application/json
+Authorization: Basic c2FtOnBvdGF0b2Vz
 
 {
-  "username": "Gandalf",
-  "password": "theWhite"
+  "content": "THIS IS COMMENT"
+}
+
+<> 2020-11-06T063103.500.html
+
+###
+
+# @no-cookie-jar
+POST http://localhost:9080/blog/api/articles/6/comments
+Content-Type: application/json
+Authorization: Basic c2FtOnBvdGF0b2Vz
+
+{
+  "content": "THIS IS COMMENT"
+}
+
+<> 2020-11-06T062959.500.html
+
+###
+
+# @no-cookie-jar
+GET http://localhost:9080/blog/api/articles/6/comments
+Accept: application/json
+Authorization: Basic ZnJvZG86YWRtaW4=
+
+<> 2020-11-06T062916.200.json
+
+###
+
+# @no-cookie-jar
+PUT http://localhost:9080/blog/api/articles/6/comments/10
+Content-Type: application/json
+Authorization: Basic c2FtOnBvdGF0b2Vz
+
+{
+  "content": "Why didn't take eagles to Mordor?"
 }
 
 ###
 
-GET http://localhost:9080/blog/api/users/1
+# @no-cookie-jar
+GET http://localhost:9080/blog/api/articles/6/comments
 Accept: application/json
+Authorization: Basic ZnJvZG86YWRtaW4=
 
-<> 2020-11-05T075233.200.json
+<> 2020-11-06T062906.200.json
 
 ###
 
+# @no-cookie-jar
+PUT http://localhost:9080/blog/api/articles/6/comments/9
+Content-Type: application/json
+Authorization: Basic c2FtOnBvdGF0b2Vz
+
+{
+  "content": "Why didn't take eagles to Mordor?"
+}
+
+###
+
+# @no-cookie-jar
+PUT http://localhost:9080/blog/api/articles/6/comments/9
+Content-Type: application/json
+Authorization: Basic c2FtOnBvdGF0b2Vz
+
+{
+  "content": "Why didn't take eagles to Mordor?"
+}
+
+<> 2020-11-06T062852.500.html
+
+###
+
+# @no-cookie-jar
+PUT http://localhost:9080/blog/api/articles/6/comments/9
+Content-Type: application/json
+Authorization: Basic c2FtOnBvdGF0b2Vz
+
+{
+  "content": "Why didn't take eagles to Mordor?"
+}
+
+<> 2020-11-06T062630.500.html
+
+###
+
+# @no-cookie-jar
+PUT http://localhost:9080/blog/api/articles/6/comments/9
+Content-Type: application/json
+Authorization: Basic c2FtOnBvdGF0b2Vz
+
+{
+  "content": "Why didn't take eagles to Mordor?"
+}
+
+<> 2020-11-06T062619.500.html
+
+###
+
+# @no-cookie-jar
+GET http://localhost:9080/blog/api/articles/6/comments
+Accept: application/json
+Authorization: Basic c2FtOnBvdGF0b2Vz
+
+<> 2020-11-06T062029.200.json
+
+###
+
+# @no-cookie-jar
+GET http://localhost:9080/blog/api/articles/6/comments
+Accept: application/json
+Authorization: Basic ZnJvZG86YWRtaW4=
+
+<> 2020-11-06T062024.200.json
+
+###
+
+# @no-cookie-jar
+GET http://localhost:9080/blog/api/articles
+Accept: application/json
+Authorization: Basic c2FtOnBvdGF0b2Vz
+
+<> 2020-11-06T062021.200.json
+
+###
+
+# @no-cookie-jar
+GET http://localhost:9080/blog/api/articles
+Accept: application/json
+Authorization: Basic ZnJvZG86YWRtaW4=
+
+<> 2020-11-06T062012.200.json
+
+###
+
+# @no-cookie-jar
+GET http://localhost:9080/blog/api/articles/6/comments
+Accept: application/json
+Authorization: Basic ZnJvZG86YWRtaW4=
+
+<> 2020-11-06T061819.200.json
+
+###
+
+# @no-cookie-jar
+POST http://localhost:9080/blog/api/articles/6/comments
+Content-Type: application/json
+Authorization: Basic c2FtOnBvdGF0b2Vz
+
+{
+  "content": "THIS IS COMMENT"
+}
+
+<> 2020-11-06T061811.500.html
+
+###
+
+# @no-cookie-jar
+PUT http://localhost:9080/blog/api/articles/6/comments/9
+Content-Type: application/json
+Authorization: Basic c2FtOnBvdGF0b2Vz
+
+{
+  "content": "Why didn't take eagles to Mordor?"
+}
+
+<> 2020-11-06T061509.500.html
+
+###
+
+# @no-cookie-jar
+GET http://localhost:9080/blog/api/articles/6/comments
+Accept: application/json
+Authorization: Basic ZnJvZG86YWRtaW4=
+
+<> 2020-11-06T061501.200.json
+
+###
+
+# @no-cookie-jar
+PUT http://localhost:9080/blog/api/articles/6/comments/9
+Content-Type: application/json
+Authorization: Basic ZnJvZG86YWRtaW4=
+
+{
+  "content": "Why didn't take eagles to Mordor?"
+}
+
+###
+
+# @no-cookie-jar
+PUT http://localhost:9080/blog/api/articles/6/comments/9
+Content-Type: application/json
+Authorization: Basic c2FtOnBvdGF0b2Vz
+
+{
+  "content": "Why didn't take eagles to Mordor?"
+}
+
+<> 2020-11-06T061402.500.html
+
+###
+
+# @no-cookie-jar
+GET http://localhost:9080/blog/api/articles/6/comments/9
+Accept: application/json
+Authorization: Basic ZnJvZG86YWRtaW4=
+
+<> 2020-11-06T061352.200.json
+
+###
+
+# @no-cookie-jar
+GET http://localhost:9080/blog/api/articles/6/comments
+Accept: application/json
+Authorization: Basic ZnJvZG86YWRtaW4=
+
+<> 2020-11-06T061331.200.json
+
+###
+
+# @no-cookie-jar
+PUT http://localhost:9080/blog/api/articles/6/comments/9
+Content-Type: application/json
+Authorization: Basic ZnJvZG86YWRtaW4=
+
+{
+  "content": "Why didn't take eagles to Mordor?"
+}
+
+###
+
+# @no-cookie-jar
+PUT http://localhost:9080/blog/api/articles/5/comments/11
+Content-Type: application/json
+Authorization: Basic ZnJvZG86YWRtaW4=
+
+{
+  "content": "Why didn't take eagles to Mordor?"
+}
+
+###
+
+# @no-cookie-jar
+GET http://localhost:9080/blog/api/users/2
+Accept: application/json
+Authorization: Basic ZnJvZG86YWRtaW4=
+
+<> 2020-11-06T060948.200.json
+
+###
+
+# @no-cookie-jar
+GET http://localhost:9080/blog/api/users/2
+Accept: application/json
+Authorization: Basic ZnJvZG86YWRtaW4=
+
+<> 2020-11-06T060707.200.json
+
+###
+
+# @no-cookie-jar
+GET http://localhost:9080/blog/api/users/2
+Accept: application/json
+Authorization: Basic ZnJvZG86YWRtaW4=
+
+<> 2020-11-06T060629.500.json
+
+###
+
+# @no-cookie-jar
+GET http://localhost:9080/blog/api/users/by-name/frodo
+Accept: application/json
+Authorization: Basic ZnJvZG86YWRtaW4=
+
+<> 2020-11-06T060625.200.json
+
+###
+
+# @no-cookie-jar
+GET http://localhost:9080/blog/api/users/6
+Accept: application/json
+Authorization: Basic ZnJvZG86YWRtaW4=
+
+###
+
+# @no-cookie-jar
 GET http://localhost:9080/blog/api/users
 Accept: application/json
+Authorization: Basic ZnJvZG86YWRtaW4=
 
-<> 2020-11-05T075219.200.json
-
-###
-
-GET http://localhost:9080/blog/api/articles/5/comments/12
-Accept: application/json
+<> 2020-11-06T060540.200.json
 
 ###
 
-GET http://localhost:9080/blog/api/articles/5/comments
-Accept: application/json
+# @no-cookie-jar
+POST http://localhost:9080/blog/api/users
+Content-Type: application/json
+
+{
+  "username": "gandalf",
+  "password": "white",
+  "birthdate": "1900-06-12"
+}
 
 ###
 
-DELETE http://localhost:9080/blog/api/articles/5
+# @no-cookie-jar
+DELETE http://localhost:9080/blog/api/articles/6
+Authorization: Basic ZnJvZG86YWRtaW4=
 
-###
-
-GET http://localhost:9080/blog/api/articles/5/comments
-Accept: application/json
-
-<> 2020-11-03T060633.200.json
-
-###
-
-GET http://localhost:9080/blog/api/articles
-Accept: application/json
-
-<> 2020-11-03T060624.200.json
-
-###
-
-GET http://localhost:9080/blog/api/articles/5
-Accept: application/json
-
-<> 2020-10-30T011100.200.json
-
-###
-
-GET http://localhost:9080/blog/api/articles/5
-Accept: application/json
-
-<> 2020-10-30T010719.200.json
-
-###
-
-GET http://localhost:9080/blog/api/articles/5
-Accept: application/json
-
-<> 2020-10-30T010219.500.json
-
-###
-
-GET http://localhost:9080/blog/api/articles/5
-Accept: application/json
-
-<> 2020-10-30T010140.500.json
-
-###
-
-GET http://localhost:9080/blog/api/articles/5
-Accept: application/json
-
-<> 2020-10-30T010130.500.json
-
-###
-
-GET http://localhost:9080/blog/api/articles/5
-Accept: application/json
-
-<> 2020-10-30T125853.200.json
-
-###
-
-GET http://localhost:9080/blog/api/articles/5
-Accept: application/json
-
-<> 2020-10-30T125802.200.json
-
-###
-
-GET http://localhost:9080/blog/api/articles
-Accept: application/json
-
-<> 2020-10-30T125757.200.json
-
-###
-
-GET http://localhost:9080/blog/api/articles/8/comments/12
-Accept: application/json
-
-###
-
-GET http://localhost:9080/blog/api/articles/8/comments/12
-Accept: application/json
+<> 2020-11-06T055936.500.html
 
 ###
 

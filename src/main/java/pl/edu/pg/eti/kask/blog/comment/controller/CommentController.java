@@ -9,9 +9,11 @@ import pl.edu.pg.eti.kask.blog.comment.dto.GetCommentsResponse;
 import pl.edu.pg.eti.kask.blog.comment.dto.UpdateCommentRequest;
 import pl.edu.pg.eti.kask.blog.comment.entity.Comment;
 import pl.edu.pg.eti.kask.blog.comment.service.CommentService;
-import pl.edu.pg.eti.kask.blog.user.entity.User;
+import pl.edu.pg.eti.kask.blog.user.entity.UserRoles;
 import pl.edu.pg.eti.kask.blog.user.service.UserService;
 
+import javax.annotation.security.RolesAllowed;
+import javax.ejb.EJBAccessException;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -27,10 +29,10 @@ import java.util.Optional;
  */
 @Path("articles/{articleId}/comments")
 @NoArgsConstructor
+@RolesAllowed(UserRoles.USER)
 public class CommentController {
     private CommentService commentService;
     private ArticleService articleService;
-    private UserService userService;
 
     @Inject
     public void setCommentService(CommentService commentService) {
@@ -41,9 +43,6 @@ public class CommentController {
     public void setArticleService(ArticleService articleService) {
         this.articleService = articleService;
     }
-
-    @Inject
-    public void setUserService(UserService userService) { this.userService = userService; }
 
     /**
      * Searches for all comments added to article
@@ -90,9 +89,8 @@ public class CommentController {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response createComment(@PathParam("articleId") Long articleId, CreateCommentRequest request) {
         Optional<Article> article = articleService.findById(articleId);
-        Optional<User> user = userService.findById(request.getUserId());
-        if (article.isPresent() && user.isPresent()) {
-            Comment comment = CreateCommentRequest.convertToEntity(request, article.get(), user.get());
+        if (article.isPresent()) {
+            Comment comment = CreateCommentRequest.convertToEntity(request, article.get());
             commentService.createComment(comment);
             URI getCommentByIdUri = URI.create(
                     UriBuilder.fromResource(CommentController.class).build(articleId).getPath() +
@@ -118,8 +116,12 @@ public class CommentController {
     public Response updateComment(@PathParam("articleId") Long articleId, @PathParam("commentId") Long commentId, UpdateCommentRequest request) {
         Optional<Comment> comment = commentService.findOneByArticleId(articleId, commentId);
         if (comment.isPresent()) {
-            commentService.updateComment(commentId, UpdateCommentRequest.convertToEntity(comment.get(), request));
-            return Response.ok().build();
+            try {
+                commentService.updateComment(commentId, UpdateCommentRequest.convertToEntity(comment.get(), request));
+                return Response.ok().build();
+            } catch (EJBAccessException e) {
+                return Response.status(Response.Status.UNAUTHORIZED).build();
+            }
         }
         return Response.status(Response.Status.NOT_FOUND).build();
     }

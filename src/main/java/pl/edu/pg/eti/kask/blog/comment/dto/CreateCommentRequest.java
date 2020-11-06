@@ -37,9 +37,8 @@ public class CreateCommentRequest {
      * @param article article to which comment should be added
      * @return converted entity
      */
-    public static Comment convertToEntity(CreateCommentRequest request, Article article, User user) {
+    public static Comment convertToEntity(CreateCommentRequest request, Article article) {
         return Comment.builder()
-                .user(user)
                 .article(article)
                 .content(request.getContent())
                 .build();

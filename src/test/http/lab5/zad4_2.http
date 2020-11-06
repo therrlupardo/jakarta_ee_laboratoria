@@ -1,0 +1,39 @@
+# Register is available for everyone
+// @no-cookie-jar
+POST http://localhost:9080/blog/api/users
+Content-Type: application/json
+
+{
+  "username": "gandalf",
+  "password": "white",
+  "birthdate": "1900-06-12"
+}
+
+###
+
+# List of users:
+// @no-cookie-jar
+GET http://localhost:9080/blog/api/users
+Accept: application/json
+Authorization: Basic ZnJvZG86YWRtaW4= # admin
+#Authorization: Basic c2FtOnBvdGF0b2Vz # user
+
+###
+
+# Get user by id
+// @no-cookie-jar
+GET http://localhost:9080/blog/api/users/2
+Accept: application/json
+Authorization: Basic ZnJvZG86YWRtaW4= # admin
+#Authorization: Basic c2FtOnBvdGF0b2Vz # user
+
+###
+
+# Get user by name
+// @no-cookie-jar
+GET http://localhost:9080/blog/api/users/by-name/frodo
+Accept: application/json
+Authorization: Basic ZnJvZG86YWRtaW4= # admin
+#Authorization: Basic c2FtOnBvdGF0b2Vz # user
+
+###

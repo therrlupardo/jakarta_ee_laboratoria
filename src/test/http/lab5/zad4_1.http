@@ -1,0 +1,31 @@
+# Admin can add articles, user cannot
+// @no-cookie-jar
+POST http://localhost:9080/blog/api/articles
+Content-Type: application/json
+Authorization: Basic ZnJvZG86YWRtaW4= # admin
+#Authorization: Basic c2FtOnBvdGF0b2Vz # user
+
+{
+  "title": "The Silmarillion",
+  "author": "J.R.R. Tolkien",
+  "content": "There was Eru, the One, who in Arda is called Ilúvatar; and he made first the Ainur, the Holy Ones ..."
+}
+
+###
+
+# Admin can delete articles, user cannot
+// @no-cookie-jar
+DELETE http://localhost:9080/blog/api/articles/6
+Authorization: Basic ZnJvZG86YWRtaW4= # admin
+#Authorization: Basic c2FtOnBvdGF0b2Vz # user
+
+###
+
+# Get all articles - both roles can do it
+// @no-cookie-jar
+GET http://localhost:9080/blog/api/articles
+Accept: application/json
+#Authorization: Basic ZnJvZG86YWRtaW4= # admin
+Authorization: Basic c2FtOnBvdGF0b2Vz # user
+
+###

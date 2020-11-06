@@ -3,7 +3,9 @@ package pl.edu.pg.eti.kask.blog.article.service;
 import lombok.NoArgsConstructor;
 import pl.edu.pg.eti.kask.blog.article.entity.Article;
 import pl.edu.pg.eti.kask.blog.article.repository.ArticleRepository;
+import pl.edu.pg.eti.kask.blog.user.entity.UserRoles;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -18,6 +20,7 @@ import java.util.Optional;
 @Stateless
 @LocalBean
 @NoArgsConstructor
+@RolesAllowed(UserRoles.USER)
 public class ArticleService implements Serializable {
 
     private ArticleRepository articleRepository;
@@ -41,7 +44,9 @@ public class ArticleService implements Serializable {
      *
      * @param article article to be created
      */
+    @RolesAllowed(UserRoles.ADMIN)
     public void create(Article article) {
+
         articleRepository.create(article);
     }
 
@@ -50,6 +55,7 @@ public class ArticleService implements Serializable {
      *
      * @param article article to be deleted
      */
+    @RolesAllowed(UserRoles.ADMIN)
     public void delete(Article article) {
         articleRepository.delete(article);
     }
@@ -70,6 +76,7 @@ public class ArticleService implements Serializable {
      * @param id      id of article to be updated
      * @param article data of article after update
      */
+    @RolesAllowed(UserRoles.ADMIN)
     public void update(Long id, Article article) {
         articleRepository.update(id, article);
     }

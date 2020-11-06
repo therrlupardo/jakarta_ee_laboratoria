@@ -1,0 +1,27 @@
+# Only logged in user can add elements. Creator is automaticly set based on credentials
+// @no-cookie-jar
+POST http://localhost:9080/blog/api/articles/7/comments
+Content-Type: application/json
+#Authorization: Basic ZnJvZG86YWRtaW4= # admin (id=2)
+Authorization: Basic c2FtOnBvdGF0b2Vz # user (id=3)
+
+{
+  "content": "THIS IS COMMENT2"
+}
+###
+
+# Get all comments from article with id = 6
+// @no-cookie-jar
+GET http://localhost:9080/blog/api/articles/7/comments
+Accept: application/json
+Authorization: Basic ZnJvZG86YWRtaW4= # admin
+#Authorization: Basic c2FtOnBvdGF0b2Vz # user
+###
+
+# Get comment
+// @no-cookie-jar
+GET http://localhost:9080/blog/api/articles/7/comments/12
+Accept: application/json
+#Authorization: Basic ZnJvZG86YWRtaW4= # admin
+Authorization: Basic c2FtOnBvdGF0b2Vz # user
+###

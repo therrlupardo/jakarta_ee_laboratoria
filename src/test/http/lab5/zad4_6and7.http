@@ -1,0 +1,18 @@
+# Admin can get all articles and all comments
+# User can get all articles, but only own comments
+
+# Get all articles
+// @no-cookie-jar
+GET http://localhost:9080/blog/api/articles
+Accept: application/json
+#Authorization: Basic ZnJvZG86YWRtaW4= # admin
+Authorization: Basic c2FtOnBvdGF0b2Vz # user
+###
+
+# Get all comments from article with id = 6
+// @no-cookie-jar
+GET http://localhost:9080/blog/api/articles/6/comments
+Accept: application/json
+#Authorization: Basic ZnJvZG86YWRtaW4= # admin
+Authorization: Basic c2FtOnBvdGF0b2Vz # user (id=3)
+###

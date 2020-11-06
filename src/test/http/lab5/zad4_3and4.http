@@ -1,0 +1,29 @@
+# Admin can edit and delete any comment
+
+# Edit comment
+// @no-cookie-jar
+PUT http://localhost:9080/blog/api/articles/6/comments/10
+Content-Type: application/json
+#Authorization: Basic ZnJvZG86YWRtaW4= # admin (id = 2)
+Authorization: Basic c2FtOnBvdGF0b2Vz # user (id = 3)
+
+{
+  "content": "Why didn't take eagles to Mordor?"
+}
+
+
+###
+# Get all comments from article with id = 6
+// @no-cookie-jar
+GET http://localhost:9080/blog/api/articles/6/comments
+Accept: application/json
+Authorization: Basic ZnJvZG86YWRtaW4= # admin
+#Authorization: Basic c2FtOnBvdGF0b2Vz # user
+###
+# Get comment
+// @no-cookie-jar
+GET http://localhost:9080/blog/api/articles/6/comments/9
+Accept: application/json
+Authorization: Basic ZnJvZG86YWRtaW4= # admin
+#Authorization: Basic c2FtOnBvdGF0b2Vz # user
+###

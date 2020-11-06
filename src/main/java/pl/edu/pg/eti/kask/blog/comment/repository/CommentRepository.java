@@ -2,12 +2,16 @@ package pl.edu.pg.eti.kask.blog.comment.repository;
 
 import pl.edu.pg.eti.kask.blog.comment.entity.Comment;
 import pl.edu.pg.eti.kask.blog.common.interfaces.CrudRepository;
+import pl.edu.pg.eti.kask.blog.user.entity.UserRoles;
 
 import javax.enterprise.context.Dependent;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.security.enterprise.SecurityContext;
 import java.io.Serializable;
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,6 +23,13 @@ import java.util.Optional;
 public class CommentRepository implements Serializable, CrudRepository<Comment> {
 
     private EntityManager em;
+
+    private SecurityContext securityContext;
+
+    @Inject
+    public CommentRepository(SecurityContext securityContext) {
+        this.securityContext = securityContext;
+    }
 
     @PersistenceContext
     public void setEm(EntityManager em) {
@@ -32,9 +43,17 @@ public class CommentRepository implements Serializable, CrudRepository<Comment> 
      * @return list of comments under article
      */
     public List<Comment> findAllByArticleId(Long articleId) {
-        return em.createQuery("SELECT c FROM Comment c WHERE c.article.id = :articleId", Comment.class)
-                .setParameter("articleId", articleId)
-                .getResultList();
+        if (securityContext.isCallerInRole(UserRoles.ADMIN)) {
+            return em.createQuery("SELECT c FROM Comment c WHERE c.article.id = :articleId", Comment.class)
+                    .setParameter("articleId", articleId)
+                    .getResultList();
+        } else {
+            return em.createQuery("SELECT c FROM Comment c WHERE c.article.id = :articleId AND c.user.username = :username" , Comment.class)
+                    .setParameter("articleId", articleId)
+                    .setParameter("username", securityContext.getCallerPrincipal().getName())
+                    .getResultList();
+        }
+
 
     }
 
@@ -67,7 +86,6 @@ public class CommentRepository implements Serializable, CrudRepository<Comment> 
     @Override
     public void create(Comment comment) {
         em.persist(comment);
-        System.out.println("CREATE COMMENT" + comment.getContent());
     }
 
     /**

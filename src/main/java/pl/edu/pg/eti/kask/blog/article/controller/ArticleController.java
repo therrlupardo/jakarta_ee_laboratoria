@@ -7,7 +7,9 @@ import pl.edu.pg.eti.kask.blog.article.dto.GetArticlesResponse;
 import pl.edu.pg.eti.kask.blog.article.dto.UpdateArticleRequest;
 import pl.edu.pg.eti.kask.blog.article.entity.Article;
 import pl.edu.pg.eti.kask.blog.article.service.ArticleService;
+import pl.edu.pg.eti.kask.blog.user.entity.UserRoles;
 
+import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -23,6 +25,7 @@ import java.util.Optional;
  */
 @Path("/articles")
 @NoArgsConstructor
+@RolesAllowed(UserRoles.USER)
 public class ArticleController {
     private ArticleService articleService;
 
@@ -68,6 +71,7 @@ public class ArticleController {
      */
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
+    @RolesAllowed(UserRoles.ADMIN)
     public Response createArticle(CreateArticleRequest request) {
         Article article = CreateArticleRequest.convertToEntity(request);
         articleService.create(article);
@@ -109,6 +113,7 @@ public class ArticleController {
     @DELETE
     @Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
+    @RolesAllowed(UserRoles.ADMIN)
     public Response deleteArticle(@PathParam("id") Long id) {
         Optional<Article> article = articleService.findById(id);
         if (article.isPresent()) {
