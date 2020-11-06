@@ -5,7 +5,6 @@ import pl.edu.pg.eti.kask.blog.user.entity.User;
 import pl.edu.pg.eti.kask.blog.utils.Sha256HashingUtility;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 /**
  * @author mateusz.buchajewicz

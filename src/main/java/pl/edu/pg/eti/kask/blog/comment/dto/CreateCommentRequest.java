@@ -3,7 +3,6 @@ package pl.edu.pg.eti.kask.blog.comment.dto;
 import lombok.*;
 import pl.edu.pg.eti.kask.blog.article.entity.Article;
 import pl.edu.pg.eti.kask.blog.comment.entity.Comment;
-import pl.edu.pg.eti.kask.blog.user.entity.User;
 
 /**
  * @author mateusz.buchajewicz

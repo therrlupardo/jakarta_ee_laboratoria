@@ -5,9 +5,6 @@ import pl.edu.pg.eti.kask.blog.article.entity.Article;
 import pl.edu.pg.eti.kask.blog.article.model.ArticleModel;
 import pl.edu.pg.eti.kask.blog.article.service.ArticleService;
 import pl.edu.pg.eti.kask.blog.comment.entity.Comment;
-import pl.edu.pg.eti.kask.blog.user.entity.User;
-import pl.edu.pg.eti.kask.blog.user.model.UserModel;
-import pl.edu.pg.eti.kask.blog.user.service.UserService;
 
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletResponse;

@@ -15,7 +15,7 @@ Authorization: Basic ZnJvZG86YWRtaW4= # admin
 
 # Admin can delete articles, user cannot
 // @no-cookie-jar
-DELETE http://localhost:9080/blog/api/articles/6
+DELETE http://localhost:9080/blog/api/articles/7
 Authorization: Basic ZnJvZG86YWRtaW4= # admin
 #Authorization: Basic c2FtOnBvdGF0b2Vz # user
 

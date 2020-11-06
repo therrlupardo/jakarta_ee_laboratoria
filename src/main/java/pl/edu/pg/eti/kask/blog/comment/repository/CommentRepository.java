@@ -11,7 +11,6 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.security.enterprise.SecurityContext;
 import java.io.Serializable;
-import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,7 +23,7 @@ public class CommentRepository implements Serializable, CrudRepository<Comment> 
 
     private EntityManager em;
 
-    private SecurityContext securityContext;
+    private final SecurityContext securityContext;
 
     @Inject
     public CommentRepository(SecurityContext securityContext) {

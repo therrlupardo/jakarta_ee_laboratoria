@@ -5,7 +5,6 @@ import pl.edu.pg.eti.kask.blog.user.entity.User;
 
 import javax.enterprise.context.Dependent;
 import javax.naming.OperationNotSupportedException;
-import java.io.IOException;
 import java.io.InputStream;
 
 /**

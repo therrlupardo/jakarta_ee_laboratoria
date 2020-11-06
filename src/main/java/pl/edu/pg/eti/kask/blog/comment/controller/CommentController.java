@@ -10,7 +10,6 @@ import pl.edu.pg.eti.kask.blog.comment.dto.UpdateCommentRequest;
 import pl.edu.pg.eti.kask.blog.comment.entity.Comment;
 import pl.edu.pg.eti.kask.blog.comment.service.CommentService;
 import pl.edu.pg.eti.kask.blog.user.entity.UserRoles;
-import pl.edu.pg.eti.kask.blog.user.service.UserService;
 
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJBAccessException;

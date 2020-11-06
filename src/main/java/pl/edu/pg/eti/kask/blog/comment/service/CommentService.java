@@ -15,7 +15,6 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.security.enterprise.SecurityContext;
 import java.io.Serializable;
-import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -68,8 +67,8 @@ public class CommentService implements Serializable {
         comment.setUser(user);
         user.getComments().add(comment);
         commentRepository.create(comment);
-//        articleRepository.findById(comment.getArticle().getId())
-//                .ifPresent(article -> article.getComments().add(comment));
+        articleRepository.findById(comment.getArticle().getId())
+                .ifPresent(article -> article.getComments().add(comment));
     }
 
     /**

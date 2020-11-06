@@ -32,7 +32,7 @@ public class AvatarService {
      *
      * @param user user which avatar should be returned
      * @return avatar of specified user as array of bytes
-     * @throws IOException throw if any input/output exception
+     * @throws OperationNotSupportedException thrown if operation is not supported
      */
     public byte[] findAvatarByUser(User user) throws OperationNotSupportedException {
         return avatarRepository.findAvatarByUser(user);
@@ -42,7 +42,7 @@ public class AvatarService {
      * Deletes avatar of given user
      *
      * @param user user which avatar should be removed
-     * @throws IOException throw if any input/output exception
+     * @throws OperationNotSupportedException thrown if operation is not supported
      */
     public void delete(User user) throws OperationNotSupportedException {
         avatarRepository.deleteAvatar(user);
@@ -53,7 +53,7 @@ public class AvatarService {
      *
      * @param user   user for which avatar should be created
      * @param avatar avatar which should be assigned to given user
-     * @throws IOException throw if any input/output exception
+     * @throws OperationNotSupportedException thrown if operation is not supported
      */
     public void create(User user, InputStream avatar) throws OperationNotSupportedException {
         avatarRepository.createAvatar(user, avatar);
@@ -64,10 +64,9 @@ public class AvatarService {
      *
      * @param user   user which avatar should be updated
      * @param avatar avatar which should be assigned to given user
-     * @throws IOException throw if any input/output exception
+     * @throws OperationNotSupportedException thrown if operation is not supported
      */
     public void updateAvatar(User user, InputStream avatar) throws OperationNotSupportedException {
-
         avatarRepository.updateAvatar(user, avatar);
     }
 }
